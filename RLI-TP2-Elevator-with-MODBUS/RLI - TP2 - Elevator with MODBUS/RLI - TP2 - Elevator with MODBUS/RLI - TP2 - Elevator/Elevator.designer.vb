@@ -317,7 +317,7 @@ Partial Class Elevator
         Me.ElevatorPhys.BackColor = System.Drawing.SystemColors.Control
         Me.ElevatorPhys.BackgroundImage = CType(resources.GetObject("ElevatorPhys.BackgroundImage"), System.Drawing.Image)
         Me.ElevatorPhys.InitialImage = CType(resources.GetObject("ElevatorPhys.InitialImage"), System.Drawing.Image)
-        Me.ElevatorPhys.Location = New System.Drawing.Point(355, 505)
+        Me.ElevatorPhys.Location = New System.Drawing.Point(355, 490)
         Me.ElevatorPhys.Name = "ElevatorPhys"
         Me.ElevatorPhys.Size = New System.Drawing.Size(140, 140)
         Me.ElevatorPhys.TabIndex = 21

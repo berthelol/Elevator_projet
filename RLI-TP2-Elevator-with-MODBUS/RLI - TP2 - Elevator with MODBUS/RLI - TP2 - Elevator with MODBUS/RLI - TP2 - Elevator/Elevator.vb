@@ -7,6 +7,14 @@ Public Class Elevator
     Public Shared ServerName As String = "localhost"
     Private serverIsRunning As Boolean = False
     Private clientIsRunning As Boolean = False
+    Public Enum Floor
+        zero = 485
+        one = 335
+        two = 185
+        three = 35
+    End Enum
+
+    Public floor_asked As Floor = Floor.zero
 
     Private Sub ConnectToServer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ConnectToServer.Click
         If Not clientIsRunning Then
@@ -146,95 +154,74 @@ Public Class Elevator
 
 
 
-    Private Sub ButtonCallFloor2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ButtonCallFloor2.Click
-        If serverIsRunning Then
-            Me.SendMessageToClient(Encoding.ASCII.GetBytes("Coucou client !"))
-        End If
-        If clientIsRunning Then
-            Me.SendMessageToServer(Encoding.ASCII.GetBytes("Coucou server !"))
-        End If
-    End Sub
+    'Private Sub ButtonCallFloor2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ButtonCallFloor2.Click'
+    '  If serverIsRunning Then'
+    ' Me.SendMessageToClient(Encoding.ASCII.GetBytes("Coucou client !"))'
+    '  End If'
+    ' If clientIsRunning Then'
+    '     Me.SendMessageToServer(Encoding.ASCII.GetBytes("Coucou server !"))'
+    '  End If'
+    '  End Sub'
 
-    Private Sub Move_Elevator()
-        If Me.CoilUP.Checked Then
 
-            Select Case Me.ElevatorPhys.Location.Y
-                Case Me.PositionSensor1.Location.Y - 140 To Me.PositionSensor1.Location.Y
-                    'Me.PositionSensor1.BackColor = Color.Yellow
-                    Me.LedSensor1.BackColor = Color.Green
+    Private Sub Move_Elevator(ByVal floor_asked As Floor)
+        'Si l'ascenseur est en dessous de l'étage demandé alors il monte 
+        If Me.ElevatorPhys.Location.Y > floor_asked Then
+            Me.ElevatorPhys.Location = New Point(Me.ElevatorPhys.Location.X, Me.ElevatorPhys.Location.Y - 1)
+            'Si l'ascenseur est au dessus de l'étage demandé alors il descend 
+        ElseIf Me.ElevatorPhys.Location.Y < floor_asked Then
+            Me.ElevatorPhys.Location = New Point(Me.ElevatorPhys.Location.X, Me.ElevatorPhys.Location.Y + 1)
+        ElseIf Me.ElevatorPhys.Location.Y = floor_asked Then
+            
 
-                Case Me.PositionSensor2.Location.Y - 140 To Me.PositionSensor2.Location.Y
-                    'Me.PositionSensor2.BackColor = Color.Yellow
-                    Me.LedSensor2.BackColor = Color.Green
-
-                Case Me.PositionSensor3.Location.Y - 140 To Me.PositionSensor3.Location.Y
-                    'Me.PositionSensor3.BackColor = Color.Yellow
-                    Me.LedSensor3.BackColor = Color.Green
-
-                Case Me.PositionSensor4.Location.Y - 140 To Me.PositionSensor4.Location.Y
-                    'Me.PositionSensor4.BackColor = Color.Yellow
-                    Me.LedSensor4.BackColor = Color.Green
-
-                Case Else
-                    Me.LedSensor0.BackColor = Color.Transparent
-                    Me.LedSensor1.BackColor = Color.Transparent
-                    Me.LedSensor2.BackColor = Color.Transparent
-                    Me.LedSensor3.BackColor = Color.Transparent
-                    Me.LedSensor4.BackColor = Color.Transparent
-            End Select
-
-            If Me.ElevatorPhys.Location.Y > Me.PositionSensor4.Location.Y Then
-                Me.ElevatorPhys.Location = New Point(Me.ElevatorPhys.Location.X, Me.ElevatorPhys.Location.Y - 1)
-            End If
         End If
 
+        Select Case Me.ElevatorPhys.Location.Y
 
-        If Me.CoilDown.Checked Then
+            Case Me.PositionSensor0.Location.Y - Me.ElevatorPhys.Size.Height To Me.PositionSensor0.Location.Y
+                Me.LedSensor0.BackColor = Color.Green
 
-            Select Case Me.ElevatorPhys.Location.Y + 140
-                Case Me.PositionSensor1.Location.Y To Me.PositionSensor1.Location.Y + 140
-                    'Me.PositionSensor1.BackColor = Color.Yellow
-                    Me.LedSensor1.BackColor = Color.Green
+            Case Me.PositionSensor1.Location.Y - Me.ElevatorPhys.Size.Height To Me.PositionSensor1.Location.Y
+                Me.LedSensor1.BackColor = Color.Green
 
-                Case Me.PositionSensor2.Location.Y To Me.PositionSensor2.Location.Y + 140
-                    'Me.PositionSensor2.BackColor = Color.Yellow
-                    Me.LedSensor2.BackColor = Color.Green
+            Case Me.PositionSensor2.Location.Y - Me.ElevatorPhys.Size.Height To Me.PositionSensor2.Location.Y
+                Me.LedSensor2.BackColor = Color.Green
 
-                Case Me.PositionSensor3.Location.Y To Me.PositionSensor3.Location.Y + 140
-                    'Me.PositionSensor3.BackColor = Color.Yellow
-                    Me.LedSensor3.BackColor = Color.Green
+            Case Me.PositionSensor3.Location.Y - Me.ElevatorPhys.Size.Height To Me.PositionSensor3.Location.Y
+                Me.LedSensor3.BackColor = Color.Green
 
-                Case Me.PositionSensor0.Location.Y To Me.PositionSensor0.Location.Y + 140
-                    'Me.PositionSensor0.BackColor = Color.Yellow
-                    Me.LedSensor0.BackColor = Color.Green
+            Case 38
+                Me.LedSensor4.BackColor = Color.Green
 
-                Case Else
-                    Me.LedSensor0.BackColor = Color.Transparent
-                    Me.LedSensor1.BackColor = Color.Transparent
-                    Me.LedSensor2.BackColor = Color.Transparent
-                    Me.LedSensor3.BackColor = Color.Transparent
-                    Me.LedSensor4.BackColor = Color.Transparent
-            End Select
+            Case Else
+                Me.LedSensor0.BackColor = Color.Transparent
+                Me.LedSensor1.BackColor = Color.Transparent
+                Me.LedSensor2.BackColor = Color.Transparent
+                Me.LedSensor3.BackColor = Color.Transparent
+                Me.LedSensor4.BackColor = Color.Transparent
+        End Select
 
-            If Me.ElevatorPhys.Location.Y + 140 < Me.PositionSensor0.Location.Y Then
-                Me.ElevatorPhys.Location = New Point(Me.ElevatorPhys.Location.X, Me.ElevatorPhys.Location.Y + 1)
-            End If
-        End If
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        Move_Elevator()
+        Move_Elevator(floor_asked)
     End Sub
 
     Private Sub ButtonCallFloor0_Click(sender As Object, e As EventArgs) Handles ButtonCallFloor0.Click
-
+        floor_asked = Floor.zero
     End Sub
 
     Private Sub ButtonCallFloor1_Click(sender As Object, e As EventArgs) Handles ButtonCallFloor1.Click
+        floor_asked = Floor.one
+    End Sub
 
+    Private Sub ButtonCallFloor2_Click(sender As Object, e As EventArgs) Handles ButtonCallFloor2.Click
+        floor_asked = Floor.two
     End Sub
 
     Private Sub ButtonCallFloor3_Click(sender As Object, e As EventArgs) Handles ButtonCallFloor3.Click
-
+        floor_asked = Floor.three
     End Sub
+
+
 End Class
