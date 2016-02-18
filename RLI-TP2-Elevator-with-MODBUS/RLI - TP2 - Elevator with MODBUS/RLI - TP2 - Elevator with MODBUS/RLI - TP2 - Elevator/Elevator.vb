@@ -175,19 +175,19 @@ Public Class Elevator
         Select Case Me.ElevatorPhys.Location.Y
 
             Case Me.PositionSensor0.Location.Y - Me.ElevatorPhys.Size.Height To Me.PositionSensor0.Location.Y
-                Me.LedSensor0.BackColor = Color.Green
+                Me.LedSensor0.BackColor = Color.LawnGreen
 
             Case Me.PositionSensor1.Location.Y - Me.ElevatorPhys.Size.Height To Me.PositionSensor1.Location.Y
-                Me.LedSensor1.BackColor = Color.Green
+                Me.LedSensor1.BackColor = Color.LawnGreen
 
             Case Me.PositionSensor2.Location.Y - Me.ElevatorPhys.Size.Height To Me.PositionSensor2.Location.Y
-                Me.LedSensor2.BackColor = Color.Green
+                Me.LedSensor2.BackColor = Color.LawnGreen
 
             Case Me.PositionSensor3.Location.Y - Me.ElevatorPhys.Size.Height To Me.PositionSensor3.Location.Y
-                Me.LedSensor3.BackColor = Color.Green
+                Me.LedSensor3.BackColor = Color.LawnGreen
 
             Case 38
-                Me.LedSensor4.BackColor = Color.Green
+                Me.LedSensor4.BackColor = Color.LawnGreen
 
             Case Else
                 Me.LedSensor0.BackColor = Color.Transparent

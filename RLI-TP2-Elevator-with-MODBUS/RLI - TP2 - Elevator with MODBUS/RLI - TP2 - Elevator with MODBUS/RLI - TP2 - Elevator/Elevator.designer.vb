@@ -76,8 +76,8 @@ Partial Class Elevator
         '
         'ConnectToServer
         '
-        Me.ConnectToServer.ForeColor = System.Drawing.Color.Red
-        Me.ConnectToServer.Location = New System.Drawing.Point(23, 37)
+        Me.ConnectToServer.ForeColor = System.Drawing.Color.DimGray
+        Me.ConnectToServer.Location = New System.Drawing.Point(39, 37)
         Me.ConnectToServer.Name = "ConnectToServer"
         Me.ConnectToServer.Size = New System.Drawing.Size(77, 37)
         Me.ConnectToServer.TabIndex = 0
@@ -86,8 +86,8 @@ Partial Class Elevator
         '
         'LauchServer
         '
-        Me.LauchServer.ForeColor = System.Drawing.Color.Red
-        Me.LauchServer.Location = New System.Drawing.Point(23, 80)
+        Me.LauchServer.ForeColor = System.Drawing.Color.DimGray
+        Me.LauchServer.Location = New System.Drawing.Point(39, 80)
         Me.LauchServer.Name = "LauchServer"
         Me.LauchServer.Size = New System.Drawing.Size(77, 38)
         Me.LauchServer.TabIndex = 1
@@ -121,84 +121,98 @@ Partial Class Elevator
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
         Me.PictureBox1.Location = New System.Drawing.Point(12, 12)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(245, 222)
+        Me.PictureBox1.Size = New System.Drawing.Size(233, 222)
         Me.PictureBox1.TabIndex = 6
         Me.PictureBox1.TabStop = False
         '
         'PositionSensor3
         '
         Me.PositionSensor3.AutoSize = True
-        Me.PositionSensor3.Location = New System.Drawing.Point(265, 175)
+        Me.PositionSensor3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PositionSensor3.Location = New System.Drawing.Point(250, 174)
         Me.PositionSensor3.Name = "PositionSensor3"
-        Me.PositionSensor3.Size = New System.Drawing.Size(78, 13)
+        Me.PositionSensor3.Size = New System.Drawing.Size(92, 13)
         Me.PositionSensor3.TabIndex = 11
         Me.PositionSensor3.Text = "Sensor/Input 3"
         '
         'PositionSensor2
         '
         Me.PositionSensor2.AutoSize = True
-        Me.PositionSensor2.Location = New System.Drawing.Point(265, 325)
+        Me.PositionSensor2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PositionSensor2.Location = New System.Drawing.Point(250, 325)
         Me.PositionSensor2.Name = "PositionSensor2"
-        Me.PositionSensor2.Size = New System.Drawing.Size(78, 13)
+        Me.PositionSensor2.Size = New System.Drawing.Size(92, 13)
         Me.PositionSensor2.TabIndex = 12
         Me.PositionSensor2.Text = "Sensor/Input 2"
         '
         'PositionSensor1
         '
         Me.PositionSensor1.AutoSize = True
-        Me.PositionSensor1.Location = New System.Drawing.Point(265, 475)
+        Me.PositionSensor1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PositionSensor1.Location = New System.Drawing.Point(250, 475)
         Me.PositionSensor1.Name = "PositionSensor1"
-        Me.PositionSensor1.Size = New System.Drawing.Size(78, 13)
+        Me.PositionSensor1.Size = New System.Drawing.Size(92, 13)
         Me.PositionSensor1.TabIndex = 13
         Me.PositionSensor1.Text = "Sensor/Input 1"
         '
         'PositionSensor0
         '
         Me.PositionSensor0.AutoSize = True
-        Me.PositionSensor0.Location = New System.Drawing.Point(265, 625)
+        Me.PositionSensor0.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PositionSensor0.Location = New System.Drawing.Point(250, 625)
         Me.PositionSensor0.Name = "PositionSensor0"
-        Me.PositionSensor0.Size = New System.Drawing.Size(78, 13)
+        Me.PositionSensor0.Size = New System.Drawing.Size(92, 13)
         Me.PositionSensor0.TabIndex = 14
         Me.PositionSensor0.Text = "Sensor/Input 0"
         '
         'ButtonCallFloor3
         '
+        Me.ButtonCallFloor3.BackColor = System.Drawing.Color.DimGray
+        Me.ButtonCallFloor3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ButtonCallFloor3.Location = New System.Drawing.Point(510, 85)
         Me.ButtonCallFloor3.Name = "ButtonCallFloor3"
         Me.ButtonCallFloor3.Size = New System.Drawing.Size(75, 23)
         Me.ButtonCallFloor3.TabIndex = 15
         Me.ButtonCallFloor3.Text = "Call Floor 3"
-        Me.ButtonCallFloor3.UseVisualStyleBackColor = True
+        Me.ButtonCallFloor3.UseVisualStyleBackColor = False
         '
         'ButtonCallFloor2
         '
+        Me.ButtonCallFloor2.BackColor = System.Drawing.Color.DimGray
+        Me.ButtonCallFloor2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ButtonCallFloor2.Location = New System.Drawing.Point(510, 235)
         Me.ButtonCallFloor2.Name = "ButtonCallFloor2"
         Me.ButtonCallFloor2.Size = New System.Drawing.Size(75, 23)
         Me.ButtonCallFloor2.TabIndex = 16
         Me.ButtonCallFloor2.Text = "Call Floor 2"
-        Me.ButtonCallFloor2.UseVisualStyleBackColor = True
+        Me.ButtonCallFloor2.UseVisualStyleBackColor = False
         '
         'ButtonCallFloor1
         '
+        Me.ButtonCallFloor1.BackColor = System.Drawing.Color.DimGray
+        Me.ButtonCallFloor1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ButtonCallFloor1.Location = New System.Drawing.Point(510, 385)
         Me.ButtonCallFloor1.Name = "ButtonCallFloor1"
         Me.ButtonCallFloor1.Size = New System.Drawing.Size(75, 23)
         Me.ButtonCallFloor1.TabIndex = 17
         Me.ButtonCallFloor1.Text = "Call Floor 1"
-        Me.ButtonCallFloor1.UseVisualStyleBackColor = True
+        Me.ButtonCallFloor1.UseVisualStyleBackColor = False
         '
         'ButtonCallFloor0
         '
+        Me.ButtonCallFloor0.BackColor = System.Drawing.Color.DimGray
+        Me.ButtonCallFloor0.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
+        Me.ButtonCallFloor0.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ButtonCallFloor0.Location = New System.Drawing.Point(510, 535)
         Me.ButtonCallFloor0.Name = "ButtonCallFloor0"
         Me.ButtonCallFloor0.Size = New System.Drawing.Size(75, 23)
         Me.ButtonCallFloor0.TabIndex = 18
         Me.ButtonCallFloor0.Text = "Call Floor 0"
-        Me.ButtonCallFloor0.UseVisualStyleBackColor = True
+        Me.ButtonCallFloor0.UseVisualStyleBackColor = False
         '
         'PanelSensors
         '
+        Me.PanelSensors.BackColor = System.Drawing.Color.Firebrick
         Me.PanelSensors.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.PanelSensors.Controls.Add(Me.LabelLedSensor4)
         Me.PanelSensors.Controls.Add(Me.LedSensor4)
@@ -314,7 +328,7 @@ Partial Class Elevator
         '
         'ElevatorPhys
         '
-        Me.ElevatorPhys.BackColor = System.Drawing.SystemColors.Control
+        Me.ElevatorPhys.BackColor = System.Drawing.Color.DarkRed
         Me.ElevatorPhys.BackgroundImage = CType(resources.GetObject("ElevatorPhys.BackgroundImage"), System.Drawing.Image)
         Me.ElevatorPhys.InitialImage = CType(resources.GetObject("ElevatorPhys.InitialImage"), System.Drawing.Image)
         Me.ElevatorPhys.Location = New System.Drawing.Point(355, 490)
@@ -325,6 +339,7 @@ Partial Class Elevator
         '
         'Panel1
         '
+        Me.Panel1.BackColor = System.Drawing.Color.Firebrick
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.Panel1.Controls.Add(Me.CoilDown)
         Me.Panel1.Controls.Add(Me.CoilUP)
@@ -347,6 +362,8 @@ Partial Class Elevator
         'CoilUP
         '
         Me.CoilUP.AutoSize = True
+        Me.CoilUP.FlatAppearance.BorderColor = System.Drawing.Color.Red
+        Me.CoilUP.FlatAppearance.CheckedBackColor = System.Drawing.Color.Black
         Me.CoilUP.Location = New System.Drawing.Point(49, 24)
         Me.CoilUP.Name = "CoilUP"
         Me.CoilUP.Size = New System.Drawing.Size(41, 17)
@@ -368,9 +385,10 @@ Partial Class Elevator
         'PositionSensor4
         '
         Me.PositionSensor4.AutoSize = True
-        Me.PositionSensor4.Location = New System.Drawing.Point(265, 25)
+        Me.PositionSensor4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PositionSensor4.Location = New System.Drawing.Point(251, 26)
         Me.PositionSensor4.Name = "PositionSensor4"
-        Me.PositionSensor4.Size = New System.Drawing.Size(78, 13)
+        Me.PositionSensor4.Size = New System.Drawing.Size(92, 13)
         Me.PositionSensor4.TabIndex = 22
         Me.PositionSensor4.Text = "Sensor/Input 4"
         '
@@ -392,6 +410,7 @@ Partial Class Elevator
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.DarkRed
         Me.ClientSize = New System.Drawing.Size(787, 655)
         Me.Controls.Add(Me.PositionSensor4)
         Me.Controls.Add(Me.Panel1)
