@@ -13,8 +13,8 @@ Public Class Elevator
         two = 185
         three = 35
     End Enum
+    Public floor_asked As New List(Of Floor)(New Floor() {Floor.zero})
 
-    Public floor_asked As Floor = Floor.zero
 
     Private Sub ConnectToServer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ConnectToServer.Click
         If Not clientIsRunning Then
@@ -66,8 +66,8 @@ Public Class Elevator
     Public Sub New()
         ' Cet appel est requis par le Concepteur Windows Form.
         InitializeComponent()
-
         ' Ajoutez une initialisation quelconque après l'appel InitializeComponent().
+
     End Sub
 
     Private Sub Ascenseur_FormClosed(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles MyBase.FormClosed
@@ -123,12 +123,6 @@ Public Class Elevator
     End Sub
 
 
-
-
-
-
-
-
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     ' YOUR JOB START HERE. You don't have to modify another file!
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -164,16 +158,18 @@ Public Class Elevator
     '  End Sub'
 
 
-    Private Sub Move_Elevator(ByVal floor_asked As Floor)
-        'Si l'ascenseur est en dessous de l'étage demandé alors il monte 
-        If Me.ElevatorPhys.Location.Y > floor_asked Then
-            Me.ElevatorPhys.Location = New Point(Me.ElevatorPhys.Location.X, Me.ElevatorPhys.Location.Y - 1)
-            'Si l'ascenseur est au dessus de l'étage demandé alors il descend 
-        ElseIf Me.ElevatorPhys.Location.Y < floor_asked Then
-            Me.ElevatorPhys.Location = New Point(Me.ElevatorPhys.Location.X, Me.ElevatorPhys.Location.Y + 1)
-        ElseIf Me.ElevatorPhys.Location.Y = floor_asked Then
-            
+    Private Sub Move_Elevator(ByVal floor As List(Of Floor))
+        If floor.Count Then
+            'Si l'ascenseur est en dessous de l'étage demandé alors il monte 
+            If Me.ElevatorPhys.Location.Y > floor.Item(0) Then
+                Me.ElevatorPhys.Location = New Point(Me.ElevatorPhys.Location.X, Me.ElevatorPhys.Location.Y - 1)
+                'Si l'ascenseur est au dessus de l'étage demandé alors il descend 
+            ElseIf Me.ElevatorPhys.Location.Y < floor.Item(0) Then
+                Me.ElevatorPhys.Location = New Point(Me.ElevatorPhys.Location.X, Me.ElevatorPhys.Location.Y + 1)
+            ElseIf Me.ElevatorPhys.Location.Y = floor.Item(0) Then
+                floor_asked.RemoveAt(0)
 
+            End If
         End If
 
         Select Case Me.ElevatorPhys.Location.Y
@@ -208,19 +204,19 @@ Public Class Elevator
     End Sub
 
     Private Sub ButtonCallFloor0_Click(sender As Object, e As EventArgs) Handles ButtonCallFloor0.Click
-        floor_asked = Floor.zero
+        floor_asked.Add(Floor.zero)
     End Sub
 
     Private Sub ButtonCallFloor1_Click(sender As Object, e As EventArgs) Handles ButtonCallFloor1.Click
-        floor_asked = Floor.one
+        floor_asked.Add(Floor.one)
     End Sub
 
     Private Sub ButtonCallFloor2_Click(sender As Object, e As EventArgs) Handles ButtonCallFloor2.Click
-        floor_asked = Floor.two
+        floor_asked.Add(Floor.two)
     End Sub
 
     Private Sub ButtonCallFloor3_Click(sender As Object, e As EventArgs) Handles ButtonCallFloor3.Click
-        floor_asked = Floor.three
+        floor_asked.Add(Floor.three)
     End Sub
 
 
