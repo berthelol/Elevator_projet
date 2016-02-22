@@ -67,7 +67,8 @@ Public Class Elevator
         ' Cet appel est requis par le Concepteur Windows Form.
         InitializeComponent()
         ' Ajoutez une initialisation quelconque après l'appel InitializeComponent().
-
+        My.Computer.Audio.Play(My.Resources.elevatormusic, _
+       AudioPlayMode.Background)
     End Sub
 
     Private Sub Ascenseur_FormClosed(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles MyBase.FormClosed
@@ -160,33 +161,43 @@ Public Class Elevator
 
     Private Sub Move_Elevator(ByVal floor As List(Of Floor))
         If floor.Count Then
-            'Si l'ascenseur est en dessous de l'étage demandé alors il monte 
+            'Si l'ascenseur est en dessous de l'étage demandé alors il monte '
             If Me.ElevatorPhys.Location.Y > floor.Item(0) Then
                 Me.ElevatorPhys.Location = New Point(Me.ElevatorPhys.Location.X, Me.ElevatorPhys.Location.Y - 1)
-                'Si l'ascenseur est au dessus de l'étage demandé alors il descend 
+                SetCoilUP(True)
+                SetCoilDown(False)
+                'Si l'ascenseur est au dessus de l'étage demandé alors il descend '
             ElseIf Me.ElevatorPhys.Location.Y < floor.Item(0) Then
                 Me.ElevatorPhys.Location = New Point(Me.ElevatorPhys.Location.X, Me.ElevatorPhys.Location.Y + 1)
+                SetCoilUP(False)
+                SetCoilDown(True)
+                'Arrivé à l'étage demandé'
             ElseIf Me.ElevatorPhys.Location.Y = floor.Item(0) Then
+                'On enlève l'étage demandé de la list d'attente
                 floor_asked.RemoveAt(0)
-
+                SetCoilUP(False)
+                SetCoilDown(False)
+                'Stop le temps que les passagers descendent'
+                System.Threading.Thread.Sleep(1000)
             End If
         End If
-
+        'Sensors
         Select Case Me.ElevatorPhys.Location.Y
-
-            Case Me.PositionSensor0.Location.Y - Me.ElevatorPhys.Size.Height To Me.PositionSensor0.Location.Y
+            'Si ascenseur dans la zone du sensor 0'
+            Case Me.PositionSensor0.Location.Y - Me.ElevatorPhys.Size.Height
                 Me.LedSensor0.BackColor = Color.LawnGreen
-
-            Case Me.PositionSensor1.Location.Y - Me.ElevatorPhys.Size.Height To Me.PositionSensor1.Location.Y
+                'Si ascenseur dans la zone du sensor 1'
+            Case Me.PositionSensor1.Location.Y - Me.ElevatorPhys.Size.Height + 5 To Me.PositionSensor1.Location.Y
                 Me.LedSensor1.BackColor = Color.LawnGreen
-
-            Case Me.PositionSensor2.Location.Y - Me.ElevatorPhys.Size.Height To Me.PositionSensor2.Location.Y
+                'Si ascenseur dans la zone du sensor 2'
+            Case Me.PositionSensor2.Location.Y - Me.ElevatorPhys.Size.Height + 5 To Me.PositionSensor2.Location.Y
                 Me.LedSensor2.BackColor = Color.LawnGreen
-
-            Case Me.PositionSensor3.Location.Y - Me.ElevatorPhys.Size.Height To Me.PositionSensor3.Location.Y
+                'Si ascenseur dans la zone du sensor 3'
+            Case Me.PositionSensor3.Location.Y - Me.ElevatorPhys.Size.Height + 5 To Me.PositionSensor3.Location.Y
                 Me.LedSensor3.BackColor = Color.LawnGreen
-
-            Case 38
+                'Si ascenseur dans la zone du sensor 4'
+                'Case Me.PositionSensor4.Location.Y + Me.PositionSensor4.Size.Height 
+            Case 35
                 Me.LedSensor4.BackColor = Color.LawnGreen
 
             Case Else

@@ -38,15 +38,10 @@ Partial Class Elevator
         Me.LauchServer = New System.Windows.Forms.Button()
         Me.PanelConnexion = New System.Windows.Forms.Panel()
         Me.LabelConnexion = New System.Windows.Forms.Label()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.PositionSensor3 = New System.Windows.Forms.Label()
         Me.PositionSensor2 = New System.Windows.Forms.Label()
         Me.PositionSensor1 = New System.Windows.Forms.Label()
         Me.PositionSensor0 = New System.Windows.Forms.Label()
-        Me.ButtonCallFloor3 = New System.Windows.Forms.Button()
-        Me.ButtonCallFloor2 = New System.Windows.Forms.Button()
-        Me.ButtonCallFloor1 = New System.Windows.Forms.Button()
-        Me.ButtonCallFloor0 = New System.Windows.Forms.Button()
         Me.PanelSensors = New System.Windows.Forms.Panel()
         Me.LabelLedSensor4 = New System.Windows.Forms.Label()
         Me.LedSensor4 = New System.Windows.Forms.Panel()
@@ -59,7 +54,6 @@ Partial Class Elevator
         Me.LedSensor1 = New System.Windows.Forms.Panel()
         Me.LedSensor0 = New System.Windows.Forms.Panel()
         Me.LabelSensors = New System.Windows.Forms.Label()
-        Me.ElevatorPhys = New System.Windows.Forms.PictureBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.CoilDown = New System.Windows.Forms.CheckBox()
         Me.CoilUP = New System.Windows.Forms.CheckBox()
@@ -67,11 +61,29 @@ Partial Class Elevator
         Me.PositionSensor4 = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.PictureBox5 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox4 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox3 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.ButtonCallFloor0 = New System.Windows.Forms.PictureBox()
+        Me.ButtonCallFloor1 = New System.Windows.Forms.PictureBox()
+        Me.ButtonCallFloor2 = New System.Windows.Forms.PictureBox()
+        Me.ButtonCallFloor3 = New System.Windows.Forms.PictureBox()
+        Me.ElevatorPhys = New System.Windows.Forms.PictureBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.PanelConnexion.SuspendLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelSensors.SuspendLayout()
-        CType(Me.ElevatorPhys, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
+        CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ButtonCallFloor0, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ButtonCallFloor1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ButtonCallFloor2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ButtonCallFloor3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ElevatorPhys, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ConnectToServer
@@ -96,6 +108,7 @@ Partial Class Elevator
         '
         'PanelConnexion
         '
+        Me.PanelConnexion.BackColor = System.Drawing.Color.Firebrick
         Me.PanelConnexion.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.PanelConnexion.Controls.Add(Me.LabelConnexion)
         Me.PanelConnexion.Controls.Add(Me.LauchServer)
@@ -115,15 +128,6 @@ Partial Class Elevator
         Me.LabelConnexion.Size = New System.Drawing.Size(129, 25)
         Me.LabelConnexion.TabIndex = 2
         Me.LabelConnexion.Text = "Connection"
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(12, 12)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(233, 222)
-        Me.PictureBox1.TabIndex = 6
-        Me.PictureBox1.TabStop = False
         '
         'PositionSensor3
         '
@@ -164,51 +168,6 @@ Partial Class Elevator
         Me.PositionSensor0.Size = New System.Drawing.Size(92, 13)
         Me.PositionSensor0.TabIndex = 14
         Me.PositionSensor0.Text = "Sensor/Input 0"
-        '
-        'ButtonCallFloor3
-        '
-        Me.ButtonCallFloor3.BackColor = System.Drawing.Color.DimGray
-        Me.ButtonCallFloor3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ButtonCallFloor3.Location = New System.Drawing.Point(510, 85)
-        Me.ButtonCallFloor3.Name = "ButtonCallFloor3"
-        Me.ButtonCallFloor3.Size = New System.Drawing.Size(75, 23)
-        Me.ButtonCallFloor3.TabIndex = 15
-        Me.ButtonCallFloor3.Text = "Call Floor 3"
-        Me.ButtonCallFloor3.UseVisualStyleBackColor = False
-        '
-        'ButtonCallFloor2
-        '
-        Me.ButtonCallFloor2.BackColor = System.Drawing.Color.DimGray
-        Me.ButtonCallFloor2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ButtonCallFloor2.Location = New System.Drawing.Point(510, 235)
-        Me.ButtonCallFloor2.Name = "ButtonCallFloor2"
-        Me.ButtonCallFloor2.Size = New System.Drawing.Size(75, 23)
-        Me.ButtonCallFloor2.TabIndex = 16
-        Me.ButtonCallFloor2.Text = "Call Floor 2"
-        Me.ButtonCallFloor2.UseVisualStyleBackColor = False
-        '
-        'ButtonCallFloor1
-        '
-        Me.ButtonCallFloor1.BackColor = System.Drawing.Color.DimGray
-        Me.ButtonCallFloor1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ButtonCallFloor1.Location = New System.Drawing.Point(510, 385)
-        Me.ButtonCallFloor1.Name = "ButtonCallFloor1"
-        Me.ButtonCallFloor1.Size = New System.Drawing.Size(75, 23)
-        Me.ButtonCallFloor1.TabIndex = 17
-        Me.ButtonCallFloor1.Text = "Call Floor 1"
-        Me.ButtonCallFloor1.UseVisualStyleBackColor = False
-        '
-        'ButtonCallFloor0
-        '
-        Me.ButtonCallFloor0.BackColor = System.Drawing.Color.DimGray
-        Me.ButtonCallFloor0.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
-        Me.ButtonCallFloor0.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ButtonCallFloor0.Location = New System.Drawing.Point(510, 535)
-        Me.ButtonCallFloor0.Name = "ButtonCallFloor0"
-        Me.ButtonCallFloor0.Size = New System.Drawing.Size(75, 23)
-        Me.ButtonCallFloor0.TabIndex = 18
-        Me.ButtonCallFloor0.Text = "Call Floor 0"
-        Me.ButtonCallFloor0.UseVisualStyleBackColor = False
         '
         'PanelSensors
         '
@@ -326,17 +285,6 @@ Partial Class Elevator
         Me.LabelSensors.TabIndex = 3
         Me.LabelSensors.Text = "Sensors/Inputs"
         '
-        'ElevatorPhys
-        '
-        Me.ElevatorPhys.BackColor = System.Drawing.Color.DarkRed
-        Me.ElevatorPhys.BackgroundImage = CType(resources.GetObject("ElevatorPhys.BackgroundImage"), System.Drawing.Image)
-        Me.ElevatorPhys.InitialImage = CType(resources.GetObject("ElevatorPhys.InitialImage"), System.Drawing.Image)
-        Me.ElevatorPhys.Location = New System.Drawing.Point(355, 490)
-        Me.ElevatorPhys.Name = "ElevatorPhys"
-        Me.ElevatorPhys.Size = New System.Drawing.Size(140, 140)
-        Me.ElevatorPhys.TabIndex = 21
-        Me.ElevatorPhys.TabStop = False
-        '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.Firebrick
@@ -406,20 +354,125 @@ Partial Class Elevator
         Me.Timer1.Enabled = True
         Me.Timer1.Interval = 30
         '
+        'PictureBox5
+        '
+        Me.PictureBox5.Image = Global.RLI___TP2___Elevator.My.Resources.Resources.three
+        Me.PictureBox5.Location = New System.Drawing.Point(512, 82)
+        Me.PictureBox5.Name = "PictureBox5"
+        Me.PictureBox5.Size = New System.Drawing.Size(32, 32)
+        Me.PictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
+        Me.PictureBox5.TabIndex = 31
+        Me.PictureBox5.TabStop = False
+        '
+        'PictureBox4
+        '
+        Me.PictureBox4.Image = Global.RLI___TP2___Elevator.My.Resources.Resources.two
+        Me.PictureBox4.Location = New System.Drawing.Point(512, 231)
+        Me.PictureBox4.Name = "PictureBox4"
+        Me.PictureBox4.Size = New System.Drawing.Size(32, 32)
+        Me.PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
+        Me.PictureBox4.TabIndex = 30
+        Me.PictureBox4.TabStop = False
+        '
+        'PictureBox3
+        '
+        Me.PictureBox3.Image = Global.RLI___TP2___Elevator.My.Resources.Resources.zero
+        Me.PictureBox3.Location = New System.Drawing.Point(512, 540)
+        Me.PictureBox3.Name = "PictureBox3"
+        Me.PictureBox3.Size = New System.Drawing.Size(32, 32)
+        Me.PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
+        Me.PictureBox3.TabIndex = 29
+        Me.PictureBox3.TabStop = False
+        '
+        'PictureBox2
+        '
+        Me.PictureBox2.Image = Global.RLI___TP2___Elevator.My.Resources.Resources.one
+        Me.PictureBox2.Location = New System.Drawing.Point(512, 376)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(32, 32)
+        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
+        Me.PictureBox2.TabIndex = 28
+        Me.PictureBox2.TabStop = False
+        '
+        'ButtonCallFloor0
+        '
+        Me.ButtonCallFloor0.Image = Global.RLI___TP2___Elevator.My.Resources.Resources.buttons
+        Me.ButtonCallFloor0.Location = New System.Drawing.Point(541, 525)
+        Me.ButtonCallFloor0.Name = "ButtonCallFloor0"
+        Me.ButtonCallFloor0.Size = New System.Drawing.Size(64, 64)
+        Me.ButtonCallFloor0.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
+        Me.ButtonCallFloor0.TabIndex = 27
+        Me.ButtonCallFloor0.TabStop = False
+        '
+        'ButtonCallFloor1
+        '
+        Me.ButtonCallFloor1.Image = Global.RLI___TP2___Elevator.My.Resources.Resources.buttons
+        Me.ButtonCallFloor1.Location = New System.Drawing.Point(541, 364)
+        Me.ButtonCallFloor1.Name = "ButtonCallFloor1"
+        Me.ButtonCallFloor1.Size = New System.Drawing.Size(64, 64)
+        Me.ButtonCallFloor1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
+        Me.ButtonCallFloor1.TabIndex = 26
+        Me.ButtonCallFloor1.TabStop = False
+        '
+        'ButtonCallFloor2
+        '
+        Me.ButtonCallFloor2.Image = Global.RLI___TP2___Elevator.My.Resources.Resources.buttons
+        Me.ButtonCallFloor2.Location = New System.Drawing.Point(541, 215)
+        Me.ButtonCallFloor2.Name = "ButtonCallFloor2"
+        Me.ButtonCallFloor2.Size = New System.Drawing.Size(64, 64)
+        Me.ButtonCallFloor2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
+        Me.ButtonCallFloor2.TabIndex = 25
+        Me.ButtonCallFloor2.TabStop = False
+        '
+        'ButtonCallFloor3
+        '
+        Me.ButtonCallFloor3.Image = Global.RLI___TP2___Elevator.My.Resources.Resources.buttons
+        Me.ButtonCallFloor3.Location = New System.Drawing.Point(541, 68)
+        Me.ButtonCallFloor3.Name = "ButtonCallFloor3"
+        Me.ButtonCallFloor3.Size = New System.Drawing.Size(64, 64)
+        Me.ButtonCallFloor3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
+        Me.ButtonCallFloor3.TabIndex = 24
+        Me.ButtonCallFloor3.TabStop = False
+        '
+        'ElevatorPhys
+        '
+        Me.ElevatorPhys.BackColor = System.Drawing.Color.DarkRed
+        Me.ElevatorPhys.Image = Global.RLI___TP2___Elevator.My.Resources.Resources.elevator
+        Me.ElevatorPhys.InitialImage = Nothing
+        Me.ElevatorPhys.Location = New System.Drawing.Point(355, 490)
+        Me.ElevatorPhys.Name = "ElevatorPhys"
+        Me.ElevatorPhys.Size = New System.Drawing.Size(140, 140)
+        Me.ElevatorPhys.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.ElevatorPhys.TabIndex = 21
+        Me.ElevatorPhys.TabStop = False
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
+        Me.PictureBox1.Location = New System.Drawing.Point(12, 12)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(233, 222)
+        Me.PictureBox1.TabIndex = 6
+        Me.PictureBox1.TabStop = False
+        '
         'Elevator
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.DarkRed
         Me.ClientSize = New System.Drawing.Size(787, 655)
-        Me.Controls.Add(Me.PositionSensor4)
-        Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.ElevatorPhys)
-        Me.Controls.Add(Me.PanelSensors)
+        Me.Controls.Add(Me.PictureBox5)
+        Me.Controls.Add(Me.PictureBox4)
+        Me.Controls.Add(Me.PictureBox3)
+        Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.ButtonCallFloor0)
         Me.Controls.Add(Me.ButtonCallFloor1)
         Me.Controls.Add(Me.ButtonCallFloor2)
         Me.Controls.Add(Me.ButtonCallFloor3)
+        Me.Controls.Add(Me.PositionSensor4)
+        Me.Controls.Add(Me.Panel1)
+        Me.Controls.Add(Me.ElevatorPhys)
+        Me.Controls.Add(Me.PanelSensors)
         Me.Controls.Add(Me.PositionSensor0)
         Me.Controls.Add(Me.PositionSensor1)
         Me.Controls.Add(Me.PositionSensor2)
@@ -431,12 +484,20 @@ Partial Class Elevator
         Me.Text = "Elevator - RLI - TP3"
         Me.PanelConnexion.ResumeLayout(False)
         Me.PanelConnexion.PerformLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelSensors.ResumeLayout(False)
         Me.PanelSensors.PerformLayout()
-        CType(Me.ElevatorPhys, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ButtonCallFloor0, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ButtonCallFloor1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ButtonCallFloor2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ButtonCallFloor3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ElevatorPhys, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -450,10 +511,6 @@ Partial Class Elevator
     Friend WithEvents PositionSensor2 As System.Windows.Forms.Label
     Friend WithEvents PositionSensor1 As System.Windows.Forms.Label
     Friend WithEvents PositionSensor0 As System.Windows.Forms.Label
-    Friend WithEvents ButtonCallFloor3 As System.Windows.Forms.Button
-    Friend WithEvents ButtonCallFloor2 As System.Windows.Forms.Button
-    Friend WithEvents ButtonCallFloor1 As System.Windows.Forms.Button
-    Friend WithEvents ButtonCallFloor0 As System.Windows.Forms.Button
     Friend WithEvents PanelSensors As System.Windows.Forms.Panel
     Friend WithEvents LabelSensors As System.Windows.Forms.Label
     Friend WithEvents ElevatorPhys As System.Windows.Forms.PictureBox
@@ -474,5 +531,13 @@ Partial Class Elevator
     Public WithEvents CoilDown As System.Windows.Forms.CheckBox
     Friend WithEvents CoilUP As System.Windows.Forms.CheckBox
     Friend WithEvents Timer1 As System.Windows.Forms.Timer
+    Friend WithEvents ButtonCallFloor3 As System.Windows.Forms.PictureBox
+    Friend WithEvents ButtonCallFloor2 As System.Windows.Forms.PictureBox
+    Friend WithEvents ButtonCallFloor1 As System.Windows.Forms.PictureBox
+    Friend WithEvents ButtonCallFloor0 As System.Windows.Forms.PictureBox
+    Friend WithEvents PictureBox2 As System.Windows.Forms.PictureBox
+    Friend WithEvents PictureBox3 As System.Windows.Forms.PictureBox
+    Friend WithEvents PictureBox4 As System.Windows.Forms.PictureBox
+    Friend WithEvents PictureBox5 As System.Windows.Forms.PictureBox
 
 End Class
