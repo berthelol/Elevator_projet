@@ -430,7 +430,7 @@ Partial Class Elevator
         Me.ButtonCallFloor3.Location = New System.Drawing.Point(541, 68)
         Me.ButtonCallFloor3.Name = "ButtonCallFloor3"
         Me.ButtonCallFloor3.Size = New System.Drawing.Size(64, 64)
-        Me.ButtonCallFloor3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
+        Me.ButtonCallFloor3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.ButtonCallFloor3.TabIndex = 24
         Me.ButtonCallFloor3.TabStop = False
         '

@@ -173,12 +173,15 @@ Public Class Elevator
                 SetCoilDown(True)
                 'Arrivé à l'étage demandé'
             ElseIf Me.ElevatorPhys.Location.Y = floor.Item(0) Then
+                'On éteint le bouton appelé
+                Change_bouton_color(floor.Item(0))
                 'On enlève l'étage demandé de la list d'attente
                 floor_asked.RemoveAt(0)
                 SetCoilUP(False)
                 SetCoilDown(False)
                 'Stop le temps que les passagers descendent'
                 System.Threading.Thread.Sleep(1000)
+
             End If
         End If
         'Sensors
@@ -211,23 +214,45 @@ Public Class Elevator
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+
         Move_Elevator(floor_asked)
     End Sub
 
     Private Sub ButtonCallFloor0_Click(sender As Object, e As EventArgs) Handles ButtonCallFloor0.Click
+        Me.ButtonCallFloor0.Image = My.Resources.buttonpush
         floor_asked.Add(Floor.zero)
     End Sub
 
     Private Sub ButtonCallFloor1_Click(sender As Object, e As EventArgs) Handles ButtonCallFloor1.Click
+        Me.ButtonCallFloor1.Image = My.Resources.buttonpush
         floor_asked.Add(Floor.one)
     End Sub
 
     Private Sub ButtonCallFloor2_Click(sender As Object, e As EventArgs) Handles ButtonCallFloor2.Click
+        Me.ButtonCallFloor2.Image = My.Resources.buttonpush
         floor_asked.Add(Floor.two)
     End Sub
 
     Private Sub ButtonCallFloor3_Click(sender As Object, e As EventArgs) Handles ButtonCallFloor3.Click
+        Me.ButtonCallFloor3.Image = My.Resources.buttonpush
         floor_asked.Add(Floor.three)
+    End Sub
+
+    Private Sub Change_bouton_color(ByVal floor As Floor)
+
+        Select Case floor
+            'Si ascenseur dans la zone du sensor 0'
+            Case floor.zero
+                Me.ButtonCallFloor0.Image = My.Resources.buttons
+            Case floor.one
+                Me.ButtonCallFloor1.Image = My.Resources.buttons
+            Case floor.two
+                Me.ButtonCallFloor2.Image = My.Resources.buttons
+            Case floor.three
+                Me.ButtonCallFloor3.Image = My.Resources.buttons
+            Case Else
+
+        End Select
     End Sub
 
 

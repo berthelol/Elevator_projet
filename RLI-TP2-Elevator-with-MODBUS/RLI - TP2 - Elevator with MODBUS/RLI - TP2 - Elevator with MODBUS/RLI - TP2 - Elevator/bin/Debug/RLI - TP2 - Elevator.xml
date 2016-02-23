@@ -15,6 +15,10 @@ RLI-TP2-Elevator
   Remplace la propriété CurrentUICulture du thread actuel pour toutes
   les recherches de ressources à l'aide de cette classe de ressource fortement typée.
 </summary>
+</member><member name="P:RLI___TP2___Elevator.My.Resources.Resources.buttonpush">
+	<summary>
+  Recherche une ressource localisée de type System.Drawing.Bitmap.
+</summary>
 </member><member name="P:RLI___TP2___Elevator.My.Resources.Resources.buttons">
 	<summary>
   Recherche une ressource localisée de type System.Drawing.Bitmap.
@@ -26,6 +30,10 @@ RLI-TP2-Elevator
 </member><member name="P:RLI___TP2___Elevator.My.Resources.Resources.elevatormusic">
 	<summary>
   Recherche une ressource localisée de type System.IO.UnmanagedMemoryStream semblable à System.IO.MemoryStream.
+</summary>
+</member><member name="P:RLI___TP2___Elevator.My.Resources.Resources.elevatoropen">
+	<summary>
+  Recherche une ressource localisée de type System.Drawing.Bitmap.
 </summary>
 </member><member name="P:RLI___TP2___Elevator.My.Resources.Resources.one">
 	<summary>
