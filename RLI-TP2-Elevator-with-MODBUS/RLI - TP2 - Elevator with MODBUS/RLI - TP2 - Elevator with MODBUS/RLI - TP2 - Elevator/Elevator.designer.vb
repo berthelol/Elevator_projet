@@ -71,6 +71,7 @@ Partial Class Elevator
         Me.ButtonCallFloor3 = New System.Windows.Forms.PictureBox()
         Me.ElevatorPhys = New System.Windows.Forms.PictureBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.PanelConnexion.SuspendLayout()
         Me.PanelSensors.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -455,12 +456,22 @@ Partial Class Elevator
         Me.PictureBox1.TabIndex = 6
         Me.PictureBox1.TabStop = False
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(682, 192)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(77, 22)
+        Me.Button1.TabIndex = 32
+        Me.Button1.Text = "start"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'Elevator
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.DarkRed
         Me.ClientSize = New System.Drawing.Size(787, 655)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.PictureBox5)
         Me.Controls.Add(Me.PictureBox4)
         Me.Controls.Add(Me.PictureBox3)
@@ -539,5 +550,6 @@ Partial Class Elevator
     Friend WithEvents PictureBox3 As System.Windows.Forms.PictureBox
     Friend WithEvents PictureBox4 As System.Windows.Forms.PictureBox
     Friend WithEvents PictureBox5 As System.Windows.Forms.PictureBox
+    Friend WithEvents Button1 As System.Windows.Forms.Button
 
 End Class

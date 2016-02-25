@@ -256,4 +256,7 @@ Public Class Elevator
     End Sub
 
 
+    Private Sub test_lolo(sender As Object, e As EventArgs) Handles Button1.Click
+
+    End Sub
 End Class
