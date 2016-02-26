@@ -59,5 +59,94 @@ Namespace My.Resources
                 resourceCulture = value
             End Set
         End Property
+        
+        '''<summary>
+        '''  Recherche une ressource localisée de type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property buttonpush() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("buttonpush", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Recherche une ressource localisée de type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property buttons() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("buttons", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Recherche une ressource localisée de type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property elevator() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("elevator", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Recherche une ressource localisée de type System.IO.UnmanagedMemoryStream semblable à System.IO.MemoryStream.
+        '''</summary>
+        Friend ReadOnly Property elevatormusic() As System.IO.UnmanagedMemoryStream
+            Get
+                Return ResourceManager.GetStream("elevatormusic", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Recherche une ressource localisée de type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property elevatoropen() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("elevatoropen", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Recherche une ressource localisée de type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property one() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("one", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Recherche une ressource localisée de type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property three() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("three", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Recherche une ressource localisée de type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property two() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("two", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Recherche une ressource localisée de type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property zero() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("zero", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
     End Module
 End Namespace

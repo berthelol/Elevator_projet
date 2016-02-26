@@ -13,8 +13,8 @@ Public Class Elevator
         two = 185
         three = 35
     End Enum
+    Public floor_asked As New List(Of Floor)(New Floor() {Floor.zero})
 
-    Public floor_asked As Floor = Floor.zero
 
     Private Sub ConnectToServer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ConnectToServer.Click
         If Not clientIsRunning Then
@@ -66,8 +66,9 @@ Public Class Elevator
     Public Sub New()
         ' Cet appel est requis par le Concepteur Windows Form.
         InitializeComponent()
-
         ' Ajoutez une initialisation quelconque après l'appel InitializeComponent().
+        My.Computer.Audio.Play(My.Resources.elevatormusic, _
+       AudioPlayMode.Background)
     End Sub
 
     Private Sub Ascenseur_FormClosed(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles MyBase.FormClosed
@@ -123,12 +124,6 @@ Public Class Elevator
     End Sub
 
 
-
-
-
-
-
-
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     ' YOUR JOB START HERE. You don't have to modify another file!
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -164,34 +159,49 @@ Public Class Elevator
     '  End Sub'
 
 
-    Private Sub Move_Elevator(ByVal floor_asked As Floor)
-        'Si l'ascenseur est en dessous de l'étage demandé alors il monte 
-        If Me.ElevatorPhys.Location.Y > floor_asked Then
-            Me.ElevatorPhys.Location = New Point(Me.ElevatorPhys.Location.X, Me.ElevatorPhys.Location.Y - 1)
-            'Si l'ascenseur est au dessus de l'étage demandé alors il descend 
-        ElseIf Me.ElevatorPhys.Location.Y < floor_asked Then
-            Me.ElevatorPhys.Location = New Point(Me.ElevatorPhys.Location.X, Me.ElevatorPhys.Location.Y + 1)
-        ElseIf Me.ElevatorPhys.Location.Y = floor_asked Then
-            
+    Private Sub Move_Elevator(ByVal floor As List(Of Floor))
+        If floor.Count Then
+            'Si l'ascenseur est en dessous de l'étage demandé alors il monte '
+            If Me.ElevatorPhys.Location.Y > floor.Item(0) Then
+                Me.ElevatorPhys.Location = New Point(Me.ElevatorPhys.Location.X, Me.ElevatorPhys.Location.Y - 1)
+                SetCoilUP(True)
+                SetCoilDown(False)
+                'Si l'ascenseur est au dessus de l'étage demandé alors il descend '
+            ElseIf Me.ElevatorPhys.Location.Y < floor.Item(0) Then
+                Me.ElevatorPhys.Location = New Point(Me.ElevatorPhys.Location.X, Me.ElevatorPhys.Location.Y + 1)
+                SetCoilUP(False)
+                SetCoilDown(True)
+                'Arrivé à l'étage demandé'
+            ElseIf Me.ElevatorPhys.Location.Y = floor.Item(0) Then
+                'On éteint le bouton appelé
+                Change_bouton_color(floor.Item(0))
+                'On enlève l'étage demandé de la list d'attente
+                floor_asked.RemoveAt(0)
+                SetCoilUP(False)
+                SetCoilDown(False)
+                'Stop le temps que les passagers descendent'
+                System.Threading.Thread.Sleep(1000)
 
+            End If
         End If
-
+        'Sensors
         Select Case Me.ElevatorPhys.Location.Y
-
-            Case Me.PositionSensor0.Location.Y - Me.ElevatorPhys.Size.Height To Me.PositionSensor0.Location.Y
-                Me.LedSensor0.BackColor = Color.Green
-
-            Case Me.PositionSensor1.Location.Y - Me.ElevatorPhys.Size.Height To Me.PositionSensor1.Location.Y
-                Me.LedSensor1.BackColor = Color.Green
-
-            Case Me.PositionSensor2.Location.Y - Me.ElevatorPhys.Size.Height To Me.PositionSensor2.Location.Y
-                Me.LedSensor2.BackColor = Color.Green
-
-            Case Me.PositionSensor3.Location.Y - Me.ElevatorPhys.Size.Height To Me.PositionSensor3.Location.Y
-                Me.LedSensor3.BackColor = Color.Green
-
-            Case 38
-                Me.LedSensor4.BackColor = Color.Green
+            'Si ascenseur dans la zone du sensor 0'
+            Case Me.PositionSensor0.Location.Y - Me.ElevatorPhys.Size.Height
+                Me.LedSensor0.BackColor = Color.LawnGreen
+                'Si ascenseur dans la zone du sensor 1'
+            Case Me.PositionSensor1.Location.Y - Me.ElevatorPhys.Size.Height + 5 To Me.PositionSensor1.Location.Y
+                Me.LedSensor1.BackColor = Color.LawnGreen
+                'Si ascenseur dans la zone du sensor 2'
+            Case Me.PositionSensor2.Location.Y - Me.ElevatorPhys.Size.Height + 5 To Me.PositionSensor2.Location.Y
+                Me.LedSensor2.BackColor = Color.LawnGreen
+                'Si ascenseur dans la zone du sensor 3'
+            Case Me.PositionSensor3.Location.Y - Me.ElevatorPhys.Size.Height + 5 To Me.PositionSensor3.Location.Y
+                Me.LedSensor3.BackColor = Color.LawnGreen
+                'Si ascenseur dans la zone du sensor 4'
+                'Case Me.PositionSensor4.Location.Y + Me.PositionSensor4.Size.Height 
+            Case 35
+                Me.LedSensor4.BackColor = Color.LawnGreen
 
             Case Else
                 Me.LedSensor0.BackColor = Color.Transparent
@@ -204,24 +214,49 @@ Public Class Elevator
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+
         Move_Elevator(floor_asked)
     End Sub
 
     Private Sub ButtonCallFloor0_Click(sender As Object, e As EventArgs) Handles ButtonCallFloor0.Click
-        floor_asked = Floor.zero
+        Me.ButtonCallFloor0.Image = My.Resources.buttonpush
+        floor_asked.Add(Floor.zero)
     End Sub
 
     Private Sub ButtonCallFloor1_Click(sender As Object, e As EventArgs) Handles ButtonCallFloor1.Click
-        floor_asked = Floor.one
+        Me.ButtonCallFloor1.Image = My.Resources.buttonpush
+        floor_asked.Add(Floor.one)
     End Sub
 
     Private Sub ButtonCallFloor2_Click(sender As Object, e As EventArgs) Handles ButtonCallFloor2.Click
-        floor_asked = Floor.two
+        Me.ButtonCallFloor2.Image = My.Resources.buttonpush
+        floor_asked.Add(Floor.two)
     End Sub
 
     Private Sub ButtonCallFloor3_Click(sender As Object, e As EventArgs) Handles ButtonCallFloor3.Click
-        floor_asked = Floor.three
+        Me.ButtonCallFloor3.Image = My.Resources.buttonpush
+        floor_asked.Add(Floor.three)
+    End Sub
+
+    Private Sub Change_bouton_color(ByVal floor As Floor)
+
+        Select Case floor
+            'Si ascenseur dans la zone du sensor 0'
+            Case floor.zero
+                Me.ButtonCallFloor0.Image = My.Resources.buttons
+            Case floor.one
+                Me.ButtonCallFloor1.Image = My.Resources.buttons
+            Case floor.two
+                Me.ButtonCallFloor2.Image = My.Resources.buttons
+            Case floor.three
+                Me.ButtonCallFloor3.Image = My.Resources.buttons
+            Case Else
+
+        End Select
     End Sub
 
 
+    Private Sub test_lolo(sender As Object, e As EventArgs) Handles Button1.Click
+
+    End Sub
 End Class

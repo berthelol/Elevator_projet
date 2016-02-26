@@ -128,6 +128,36 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\elevatormusic.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\elevator-buttons.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\one.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\three.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\two.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zero.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttons.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttonpush.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\elevator.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\elevatoropen.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
