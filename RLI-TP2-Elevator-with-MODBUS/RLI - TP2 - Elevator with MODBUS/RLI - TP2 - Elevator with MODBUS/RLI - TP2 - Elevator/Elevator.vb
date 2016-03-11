@@ -13,6 +13,8 @@ Public Class Elevator
         two = 185
         three = 35
     End Enum
+    Dim msg_send As Byte() = New Byte(0 To 11) {}
+    Dim msg_receive As Byte() = New Byte(0 To 11) {}
     Public floor_asked As New List(Of Floor)(New Floor() {Floor.zero})
 
 
@@ -23,6 +25,9 @@ Public Class Elevator
             serverNameForm.ShowDialog()
             Me.ConnectToServer.ForeColor = System.Drawing.Color.Green
             Me.ConnectToServer.Text = "Disconnect From the Server"
+            msg_send = Encoding.ASCII.GetBytes("loic")
+            msg_send(0) =
+            MessageBox.Show(msg_send(0), "I am Server")
 
             Try
                 Me._socket = New AsynchronousClient()
@@ -236,6 +241,7 @@ Public Class Elevator
     Private Sub ButtonCallFloor3_Click(sender As Object, e As EventArgs) Handles ButtonCallFloor3.Click
         Me.ButtonCallFloor3.Image = My.Resources.buttonpush
         floor_asked.Add(Floor.three)
+
     End Sub
 
     Private Sub Change_bouton_color(ByVal floor As Floor)
