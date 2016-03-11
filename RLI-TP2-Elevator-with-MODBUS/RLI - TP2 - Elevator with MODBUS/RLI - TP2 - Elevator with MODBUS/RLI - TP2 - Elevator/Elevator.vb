@@ -255,8 +255,4 @@ Public Class Elevator
         End Select
     End Sub
 
-
-    Private Sub test_lolo(sender As Object, e As EventArgs)
-
-    End Sub
 End Class
