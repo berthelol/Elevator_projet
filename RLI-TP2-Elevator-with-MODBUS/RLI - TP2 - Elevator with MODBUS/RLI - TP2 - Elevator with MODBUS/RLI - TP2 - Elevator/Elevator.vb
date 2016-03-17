@@ -25,9 +25,6 @@ Public Class Elevator
             serverNameForm.ShowDialog()
             Me.ConnectToServer.ForeColor = System.Drawing.Color.Green
             Me.ConnectToServer.Text = "Disconnect From the Server"
-            msg_send = Encoding.ASCII.GetBytes("loic")
-            msg_send(0) =
-            MessageBox.Show(msg_send(0), "I am Server")
 
             Try
                 Me._socket = New AsynchronousClient()
@@ -225,6 +222,9 @@ Public Class Elevator
 
     Private Sub ButtonCallFloor0_Click(sender As Object, e As EventArgs) Handles ButtonCallFloor0.Click
         Me.ButtonCallFloor0.Image = My.Resources.buttonpush
+        msg_send = Encoding.ASCII.GetBytes("loic")
+
+        MessageBox.Show(msg_send(0), "I am Server")
         floor_asked.Add(Floor.zero)
     End Sub
 
