@@ -133,6 +133,17 @@ Public Class Elevator
         'Add some stuff to interpret messages (and remove the next line!)
         'Bytes are in e.ReceivedBytes and you can encore the bytes to string using Encoding.ASCII.GetString(e.ReceivedBytes)
         MessageBox.Show("Server says :" + Encoding.ASCII.GetString(e.ReceivedBytes), "I am Client")
+        Select Case Encoding.ASCII.GetString(e.ReceivedBytes)
+            '
+            Case "0000"
+                Me.LedSensor1.BackColor = Color.Black
+
+            Case Else
+
+        End Select
+
+
+
 
         'BE CAREFUL!! 
         'If you want to change the properties of CoilUP/CoilDown/LedSensor... here, you must use safe functions. 
@@ -160,6 +171,38 @@ Public Class Elevator
     '  End If'
     '  End Sub'
 
+    Private Sub FC1()
+
+        msg_send(0) = &H0
+        msg_send(1) = &H0
+        msg_send(2) = &H0
+        msg_send(3) = &H0
+        msg_send(4) = &H0
+        msg_send(5) = &H6
+        msg_send(6) = &H1
+        msg_send(7) = &H2
+        msg_send(8) = &H0
+        msg_send(9) = &H0
+        msg_send(10) = &H0
+        msg_send(11) = &H0
+
+    End Sub
+
+   
+    Private Sub FC2()
+
+    End Sub
+
+
+
+    Private Sub FC5()
+
+    End Sub
+
+
+    Private Sub FC15()
+
+    End Sub
 
     Private Sub Move_Elevator(ByVal floor As List(Of Floor))
         If floor.Count Then
@@ -222,9 +265,9 @@ Public Class Elevator
 
     Private Sub ButtonCallFloor0_Click(sender As Object, e As EventArgs) Handles ButtonCallFloor0.Click
         Me.ButtonCallFloor0.Image = My.Resources.buttonpush
-        msg_send = Encoding.ASCII.GetBytes("loic")
+        msg_send = Encoding.ASCII.GetBytes("0000")
+        SendMessageToClient(msg_send)
 
-        MessageBox.Show(msg_send(0), "I am Server")
         floor_asked.Add(Floor.zero)
     End Sub
 

@@ -15,8 +15,8 @@ Namespace AsyncSocket
         End Sub
 
         Private Sub InitializeComponent()
-            Me.ServerName = New System.Windows.Forms.TextBox
-            Me.Valid = New System.Windows.Forms.Button
+            Me.ServerName = New System.Windows.Forms.TextBox()
+            Me.Valid = New System.Windows.Forms.Button()
             Me.SuspendLayout()
             '
             'ServerName
@@ -25,7 +25,7 @@ Namespace AsyncSocket
             Me.ServerName.Name = "ServerName"
             Me.ServerName.Size = New System.Drawing.Size(199, 20)
             Me.ServerName.TabIndex = 0
-            Me.ServerName.Text = "IP Address / Serveur Name"
+            Me.ServerName.Text = "127.0.0.1"
             '
             'Valid
             '
