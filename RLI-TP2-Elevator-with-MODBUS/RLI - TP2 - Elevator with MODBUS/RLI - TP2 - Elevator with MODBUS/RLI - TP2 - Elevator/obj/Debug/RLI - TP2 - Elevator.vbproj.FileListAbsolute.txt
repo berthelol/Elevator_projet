@@ -29,3 +29,7 @@ C:\Users\Loic\Documents\Travail\ECE\ING4\Semestre2\Elevator\RLI-TP2-Elevator-wit
 C:\Users\Loic\Documents\Travail\ECE\ING4\Semestre2\Elevator\RLI-TP2-Elevator-with-MODBUS\RLI - TP2 - Elevator with MODBUS\RLI - TP2 - Elevator with MODBUS\RLI - TP2 - Elevator\bin\Debug\RLI - TP2 - Elevator.exe
 C:\Users\Loic\Documents\Travail\ECE\ING4\Semestre2\Elevator\RLI-TP2-Elevator-with-MODBUS\RLI - TP2 - Elevator with MODBUS\RLI - TP2 - Elevator with MODBUS\RLI - TP2 - Elevator\bin\Debug\RLI - TP2 - Elevator.pdb
 C:\Users\Loic\Documents\Travail\ECE\ING4\Semestre2\Elevator\RLI-TP2-Elevator-with-MODBUS\RLI - TP2 - Elevator with MODBUS\RLI - TP2 - Elevator with MODBUS\RLI - TP2 - Elevator\bin\Debug\RLI - TP2 - Elevator.xml
+C:\Users\Paul-Antoine Bigot\Documents\VBprojet\RLI-TP2-Elevator-with-MODBUS\RLI - TP2 - Elevator with MODBUS\RLI - TP2 - Elevator with MODBUS\RLI - TP2 - Elevator\bin\Debug\RLI - TP2 - Elevator.exe.config
+C:\Users\Paul-Antoine Bigot\Documents\VBprojet\RLI-TP2-Elevator-with-MODBUS\RLI - TP2 - Elevator with MODBUS\RLI - TP2 - Elevator with MODBUS\RLI - TP2 - Elevator\obj\Debug\RLI - TP2 - Elevator.exe
+C:\Users\Paul-Antoine Bigot\Documents\VBprojet\RLI-TP2-Elevator-with-MODBUS\RLI - TP2 - Elevator with MODBUS\RLI - TP2 - Elevator with MODBUS\RLI - TP2 - Elevator\obj\Debug\RLI - TP2 - Elevator.xml
+C:\Users\Paul-Antoine Bigot\Documents\VBprojet\RLI-TP2-Elevator-with-MODBUS\RLI - TP2 - Elevator with MODBUS\RLI - TP2 - Elevator with MODBUS\RLI - TP2 - Elevator\obj\Debug\RLI - TP2 - Elevator.pdb
