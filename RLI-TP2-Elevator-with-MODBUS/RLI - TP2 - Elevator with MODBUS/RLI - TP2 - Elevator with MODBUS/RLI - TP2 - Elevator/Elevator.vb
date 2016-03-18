@@ -47,22 +47,26 @@ Public Class Elevator
     End Sub
 
     Private Sub LauchServer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LauchServer.Click
-        If Not serverIsRunning Then
-            Me._socket = New AsynchronousServer()
-            Me._socket.AttachReceiveCallBack(AddressOf ReceivedDataFromClient)
-            TryCast(_socket, AsynchronousServer).RunServer()
 
-            Me.serverIsRunning = True
+        Me.LauchServer.ForeColor = System.Drawing.Color.Red
+        Me.LauchServer.Text = "Launch the Server"
+        If Not serverIsRunning Then
+            Dim serveur As AsyncSocket.Serveur = New AsyncSocket.Serveur
+            serveur.Show()
+            serverIsRunning = True
             Me.LauchServer.ForeColor = System.Drawing.Color.Green
             Me.LauchServer.Text = "Stop the Server"
-        Else
-            If _socket IsNot Nothing Then
-                _socket.Close()
-            End If
-            Me.serverIsRunning = False
-            Me.LauchServer.ForeColor = System.Drawing.Color.Red
-            Me.LauchServer.Text = "Launch the Server"
+
+        Else 
+        If _socket IsNot Nothing Then
+            _socket.Close()
         End If
+        Me.serverIsRunning = False
+        Me.LauchServer.ForeColor = System.Drawing.Color.Red
+        Me.LauchServer.Text = "Launch the Server"
+        End If
+
+
     End Sub
 
     Public Sub New()
@@ -79,13 +83,6 @@ Public Class Elevator
         End If
     End Sub
 
-    Public Sub SendMessageToClient(ByVal msg As Byte())
-        If _socket IsNot Nothing Then
-            If TryCast(_socket, AsynchronousServer) IsNot Nothing Then
-                Me._socket.SendMessage(msg)
-            End If
-        End If
-    End Sub
 
     Public Sub SendMessageToServer(ByVal msg As Byte())
         If _socket IsNot Nothing Then
@@ -134,7 +131,7 @@ Public Class Elevator
         'Add some stuff to interpret messages (and remove the next line!)
         'Bytes are in e.ReceivedBytes and you can encore the bytes to string using Encoding.ASCII.GetString(e.ReceivedBytes)
         ' MessageBox.Show("Server says :" + Encoding.ASCII.GetString(e.ReceivedBytes), "I am Client")
-        'MessageBox.Show(Encoding.ASCII.GetString(e.ReceivedBytes), "I am Server")
+        ' MessageBox.Show(Encoding.ASCII.GetString(e.ReceivedBytes), "I am Server")
         Select Case GetChar(Encoding.ASCII.GetString(e.ReceivedBytes), 16)
             'FC5
             Case "5"
@@ -153,7 +150,7 @@ Public Class Elevator
                 End If
                 'FC1
             Case "1"
-                FC1(Encoding.ASCII.GetString(e.ReceivedBytes))
+                ' FC1(Encoding.ASCII.GetString(e.ReceivedBytes))
                 'FC2
             Case "2"
                 'En fonction du bit recu indic quel sensor est allumé
@@ -171,37 +168,7 @@ Public Class Elevator
         'Functions for CoilUP and CoilDown are given (see SetCoilDown and SetCoilUP)
     End Sub
 
-    'SERVER SIDE
-    Private Sub ReceivedDataFromClient(ByVal sender As Object, ByVal e As AsyncEventArgs)
-        'Add some stuff to interpret messages (and remove the next line!)
-        'Bytes are in e.ReceivedBytes and you can encore the bytes to string using Encoding.ASCII.GetString(e.ReceivedBytes)
-        'MessageBox.Show("Client says :" + Encoding.ASCII.GetString(e.ReceivedBytes), "I am Server")
-        Select Case GetChar(Encoding.ASCII.GetString(e.ReceivedBytes), 16)
-            'FC5
-            Case "5"
-                FC5(Encoding.ASCII.GetString(e.ReceivedBytes))
-                'FC1
-            Case "1"
-                FC1(Encoding.ASCII.GetString(e.ReceivedBytes))
-                'FC2
-            Case "2"
-                'MessageBox.Show(Encoding.ASCII.GetString(e.ReceivedBytes), "I am Server")
-                If ((GetChar(Encoding.ASCII.GetString(e.ReceivedBytes), 19) = "0") And (GetChar(Encoding.ASCII.GetString(e.ReceivedBytes), 20) = "8")) Then
-                    FC5("000000000006010500010000")
-                End If
-                'FC15
-            Case "F"
-                FC15(Encoding.ASCII.GetString(e.ReceivedBytes))
-
-            Case Else
-                Me.LedSensor0.BackColor = Color.Black
-
-
-        End Select
-        'BE CAREFUL!! 
-        'If you want to change the properties of CoilUP/CoilDown/LedSensor... here, you must use safe functions. 
-        'Functions for CoilUP and CoilDown are given (see SetCoilDown and SetCoilUP)
-    End Sub
+    
 
 
 
@@ -214,10 +181,7 @@ Public Class Elevator
     '  End If'
     '  End Sub'
 
-    'Read coils
-    Private Sub FC1(ByVal msg As String)
-        Me.SendMessageToClient(Encoding.ASCII.GetBytes("000000000006010200000005"))
-    End Sub
+    
 
     'Read discret input in the slave
     Private Sub FC2()
@@ -238,75 +202,72 @@ Public Class Elevator
         If (Me.LedSensor4.BackColor = Color.LawnGreen) Then
             msg_tosend = "000000000006010201" + "10"
         End If
-        SendMessageToServer(Encoding.ASCII.GetBytes(msg_tosend))
+        If msg_tosend.Length = 20 Then
+            Me.SendMessageToServer(Encoding.ASCII.GetBytes(msg_tosend))
+        End If
 
     End Sub
 
-    'Write coil
-    Private Sub FC5(ByVal msg As String)
-        ' msg_send = Encoding.ASCII.GetBytes("00000000000601050001FF00")
-        SendMessageToClient(Encoding.ASCII.GetBytes(msg))
-
-    End Sub
+    
 
     'Force multiple coils
     Private Sub FC15(ByVal msg As String)
 
     End Sub
 
-    Private Sub Move_Elevator(ByVal floor As List(Of Floor))
-        If floor.Count Then
-            'Si l'ascenseur est en dessous de l'étage demandé alors il monte '
-            If Me.ElevatorPhys.Location.Y > floor.Item(0) Then
-                Me.ElevatorPhys.Location = New Point(Me.ElevatorPhys.Location.X, Me.ElevatorPhys.Location.Y - 1)
-                SetCoilUP(True)
-                SetCoilDown(False)
-                'Si l'ascenseur est au dessus de l'étage demandé alors il descend '
-            ElseIf Me.ElevatorPhys.Location.Y < floor.Item(0) Then
-                Me.ElevatorPhys.Location = New Point(Me.ElevatorPhys.Location.X, Me.ElevatorPhys.Location.Y + 1)
-                SetCoilUP(False)
-                SetCoilDown(True)
-                'Arrivé à l'étage demandé'
-            ElseIf Me.ElevatorPhys.Location.Y = floor.Item(0) Then
-                'On éteint le bouton appelé
-                Change_bouton_color(floor.Item(0))
-                'On enlève l'étage demandé de la list d'attente
-                floor_asked.RemoveAt(0)
-                SetCoilUP(False)
-                SetCoilDown(False)
-                'Stop le temps que les passagers descendent'
-                System.Threading.Thread.Sleep(1000)
+    'Private Sub Move_Elevator(ByVal floor As List(Of Floor))
+    '   If floor.Count Then
+    'Si l'ascenseur est en dessous de l'étage demandé alors il monte '
+    '     If Me.ElevatorPhys.Location.Y > floor.Item(0) Then
+    '        Me.ElevatorPhys.Location = New Point(Me.ElevatorPhys.Location.X, Me.ElevatorPhys.Location.Y - 1)
+    '       SetCoilUP(True)
+    '       SetCoilDown(False)
+    'Si l'ascenseur est au dessus de l'étage demandé alors il descend '
+    '    ElseIf Me.ElevatorPhys.Location.Y < floor.Item(0) Then
+    '       Me.ElevatorPhys.Location = New Point(Me.ElevatorPhys.Location.X, Me.ElevatorPhys.Location.Y + 1)
+    '        SetCoilUP(False)
+    '     SetCoilDown(True)
+    'Arrivé à l'étage demandé'
+    '  ElseIf Me.ElevatorPhys.Location.Y = floor.Item(0) Then
+    'On éteint le bouton appelé
+    '     Change_bouton_color(floor.Item(0))
+    'On enlève l'étage demandé de la list d'attente
+    '   floor_asked.RemoveAt(0)
+    '   SetCoilUP(False)
+    '   SetCoilDown(False)
+    'Stop le temps que les passagers descendent'
+    '   System.Threading.Thread.Sleep(1000)
 
-            End If
-        End If
-        'Sensors
-        Select Case Me.ElevatorPhys.Location.Y
-            'Si ascenseur dans la zone du sensor 0'
-            Case Me.PositionSensor0.Location.Y - Me.ElevatorPhys.Size.Height
-                Me.LedSensor0.BackColor = Color.LawnGreen
-                'Si ascenseur dans la zone du sensor 1'
-            Case Me.PositionSensor1.Location.Y - Me.ElevatorPhys.Size.Height + 5 To Me.PositionSensor1.Location.Y
-                Me.LedSensor1.BackColor = Color.LawnGreen
-                'Si ascenseur dans la zone du sensor 2'
-            Case Me.PositionSensor2.Location.Y - Me.ElevatorPhys.Size.Height + 5 To Me.PositionSensor2.Location.Y
-                Me.LedSensor2.BackColor = Color.LawnGreen
-                'Si ascenseur dans la zone du sensor 3'
-            Case Me.PositionSensor3.Location.Y - Me.ElevatorPhys.Size.Height + 5 To Me.PositionSensor3.Location.Y
-                Me.LedSensor3.BackColor = Color.LawnGreen
-                'Si ascenseur dans la zone du sensor 4'
-                'Case Me.PositionSensor4.Location.Y + Me.PositionSensor4.Size.Height 
-            Case 35
-                Me.LedSensor4.BackColor = Color.LawnGreen
+    '   End If
+    ' End If
+    'Sensors
+    '  Select Case Me.ElevatorPhys.Location.Y
+    'Si ascenseur dans la zone du sensor 0'
+    '     Case Me.PositionSensor0.Location.Y - Me.ElevatorPhys.Size.Height
+    '       Me.LedSensor0.BackColor = Color.LawnGreen
+    'Si ascenseur dans la zone du sensor 1'
+    '   Case Me.PositionSensor1.Location.Y - Me.ElevatorPhys.Size.Height + 5 To Me.PositionSensor1.Location.Y
+    '       Me.LedSensor1.BackColor = Color.LawnGreen
+    'Si ascenseur dans la zone du sensor 2'
+    '  Case Me.PositionSensor2.Location.Y - Me.ElevatorPhys.Size.Height + 5 To Me.PositionSensor2.Location.Y
+    '      Me.LedSensor2.BackColor = Color.LawnGreen
+    'Si ascenseur dans la zone du sensor 3'
+    '  Case Me.PositionSensor3.Location.Y - Me.ElevatorPhys.Size.Height + 5 To Me.PositionSensor3.Location.Y
+    '      Me.LedSensor3.BackColor = Color.LawnGreen
+    'Si ascenseur dans la zone du sensor 4'
+    'Case Me.PositionSensor4.Location.Y + Me.PositionSensor4.Size.Height 
+    '  Case 35
+    '      Me.LedSensor4.BackColor = Color.LawnGreen
 
-            Case Else
-                Me.LedSensor0.BackColor = Color.Transparent
-                Me.LedSensor1.BackColor = Color.Transparent
-                Me.LedSensor2.BackColor = Color.Transparent
-                Me.LedSensor3.BackColor = Color.Transparent
-                Me.LedSensor4.BackColor = Color.Transparent
-        End Select
+    '  Case Else
+    '      Me.LedSensor0.BackColor = Color.Transparent
+    '       Me.LedSensor1.BackColor = Color.Transparent
+    '      Me.LedSensor2.BackColor = Color.Transparent
+    '      Me.LedSensor3.BackColor = Color.Transparent
+    '      Me.LedSensor4.BackColor = Color.Transparent
+    '  End Select
 
-    End Sub
+    ' End Sub
     Dim last_sensor As Integer = 0
     Private Function Sensor() As Integer
         'Sensors
@@ -366,45 +327,6 @@ Public Class Elevator
         'Move_Elevator(floor_asked)
     End Sub
 
-    Private Sub ButtonCallFloor0_Click(sender As Object, e As EventArgs) Handles ButtonCallFloor0.Click
-        Me.ButtonCallFloor0.Image = My.Resources.buttonpush
-        floor_asked.Add(Floor.zero)
-    End Sub
 
-    Private Sub ButtonCallFloor1_Click(sender As Object, e As EventArgs) Handles ButtonCallFloor1.Click
-        Me.ButtonCallFloor1.Image = My.Resources.buttonpush
-        floor_asked.Add(Floor.one)
-       
-    End Sub
-
-    Private Sub ButtonCallFloor2_Click(sender As Object, e As EventArgs) Handles ButtonCallFloor2.Click
-        'Me.ButtonCallFloor2.Image = My.Resources.buttonpush
-        'floor_asked.Add(Floor.two)
-        Dim floor_asked As New List(Of Floor)(New Floor() {Floor.zero})
-        FC5("00000000000601050001F000")
-    End Sub
-
-    Private Sub ButtonCallFloor3_Click(sender As Object, e As EventArgs) Handles ButtonCallFloor3.Click
-        Me.ButtonCallFloor3.Image = My.Resources.buttonpush
-        floor_asked.Add(Floor.three)
-
-    End Sub
-
-    Private Sub Change_bouton_color(ByVal floor As Floor)
-
-        Select Case floor
-            'Si ascenseur dans la zone du sensor 0'
-            Case floor.zero
-                Me.ButtonCallFloor0.Image = My.Resources.buttons
-            Case floor.one
-                Me.ButtonCallFloor1.Image = My.Resources.buttons
-            Case floor.two
-                Me.ButtonCallFloor2.Image = My.Resources.buttons
-            Case floor.three
-                Me.ButtonCallFloor3.Image = My.Resources.buttons
-            Case Else
-
-        End Select
-    End Sub
 
 End Class
