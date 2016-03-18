@@ -129,6 +129,7 @@ Public Class Elevator
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     ' YOUR JOB START HERE. You don't have to modify another file!
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    'CLIENT SIDE
     Private Sub ReceivedDataFromServer(ByVal sender As Object, ByVal e As AsyncEventArgs)
         'Add some stuff to interpret messages (and remove the next line!)
         'Bytes are in e.ReceivedBytes and you can encore the bytes to string using Encoding.ASCII.GetString(e.ReceivedBytes)
@@ -140,11 +141,15 @@ Public Class Elevator
                 ' FC5(Encoding.ASCII.GetString(e.ReceivedBytes))
                 If GetChar(Encoding.ASCII.GetString(e.ReceivedBytes), 21) = "F" Then
                     SetCoilUP(True)
-                    SetCoilDown(False)
+                End If
+                If GetChar(Encoding.ASCII.GetString(e.ReceivedBytes), 21) = "0" Then
+                    SetCoilUP(False)
                 End If
                 If GetChar(Encoding.ASCII.GetString(e.ReceivedBytes), 22) = "F" Then
-                    SetCoilUP(False)
                     SetCoilDown(True)
+                End If
+                If GetChar(Encoding.ASCII.GetString(e.ReceivedBytes), 22) = "0" Then
+                    SetCoilDown(False)
                 End If
                 'FC1
             Case "1"
@@ -166,6 +171,7 @@ Public Class Elevator
         'Functions for CoilUP and CoilDown are given (see SetCoilDown and SetCoilUP)
     End Sub
 
+    'SERVER SIDE
     Private Sub ReceivedDataFromClient(ByVal sender As Object, ByVal e As AsyncEventArgs)
         'Add some stuff to interpret messages (and remove the next line!)
         'Bytes are in e.ReceivedBytes and you can encore the bytes to string using Encoding.ASCII.GetString(e.ReceivedBytes)
@@ -179,7 +185,10 @@ Public Class Elevator
                 FC1(Encoding.ASCII.GetString(e.ReceivedBytes))
                 'FC2
             Case "2"
-               
+                'MessageBox.Show(Encoding.ASCII.GetString(e.ReceivedBytes), "I am Server")
+                If ((GetChar(Encoding.ASCII.GetString(e.ReceivedBytes), 19) = "0") And (GetChar(Encoding.ASCII.GetString(e.ReceivedBytes), 20) = "8")) Then
+                    FC5("000000000006010500010000")
+                End If
                 'FC15
             Case "F"
                 FC15(Encoding.ASCII.GetString(e.ReceivedBytes))
@@ -207,7 +216,7 @@ Public Class Elevator
 
     'Read coils
     Private Sub FC1(ByVal msg As String)
-        SendMessageToClient(Encoding.ASCII.GetBytes("000000000006010200000005"))
+        Me.SendMessageToClient(Encoding.ASCII.GetBytes("000000000006010200000005"))
     End Sub
 
     'Read discret input in the slave
@@ -298,25 +307,32 @@ Public Class Elevator
         End Select
 
     End Sub
-    Private Sub Sensor()
+    Dim last_sensor As Integer = 0
+    Private Function Sensor() As Integer
         'Sensors
+        Dim actual_sensor As Integer
         Select Case Me.ElevatorPhys.Location.Y
             'Si ascenseur dans la zone du sensor 0'
             Case Me.PositionSensor0.Location.Y - Me.ElevatorPhys.Size.Height
                 Me.LedSensor0.BackColor = Color.LawnGreen
+                actual_sensor = 0
                 'Si ascenseur dans la zone du sensor 1'
             Case Me.PositionSensor1.Location.Y - Me.ElevatorPhys.Size.Height + 5 To Me.PositionSensor1.Location.Y
                 Me.LedSensor1.BackColor = Color.LawnGreen
+                actual_sensor = 1
                 'Si ascenseur dans la zone du sensor 2'
             Case Me.PositionSensor2.Location.Y - Me.ElevatorPhys.Size.Height + 5 To Me.PositionSensor2.Location.Y
                 Me.LedSensor2.BackColor = Color.LawnGreen
+                actual_sensor = 2
                 'Si ascenseur dans la zone du sensor 3'
             Case Me.PositionSensor3.Location.Y - Me.ElevatorPhys.Size.Height + 5 To Me.PositionSensor3.Location.Y
                 Me.LedSensor3.BackColor = Color.LawnGreen
+                actual_sensor = 3
                 'Si ascenseur dans la zone du sensor 4'
                 'Case Me.PositionSensor4.Location.Y + Me.PositionSensor4.Size.Height 
             Case 35
                 Me.LedSensor4.BackColor = Color.LawnGreen
+                actual_sensor = 4
 
             Case Else
                 Me.LedSensor0.BackColor = Color.Transparent
@@ -324,17 +340,29 @@ Public Class Elevator
                 Me.LedSensor2.BackColor = Color.Transparent
                 Me.LedSensor3.BackColor = Color.Transparent
                 Me.LedSensor4.BackColor = Color.Transparent
+                actual_sensor = last_sensor
         End Select
-    End Sub
+        Return actual_sensor
+    End Function
+
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        FC2()
-        Sensor()
+
+
+        '<> different
+        If (Sensor() <> last_sensor) Then
+            FC2()
+        End If
+
         If (Me.CoilUP.Checked) Then
             Me.ElevatorPhys.Location = New Point(Me.ElevatorPhys.Location.X, Me.ElevatorPhys.Location.Y - 1)
         End If
         If (Me.CoilDown.Checked) Then
             Me.ElevatorPhys.Location = New Point(Me.ElevatorPhys.Location.X, Me.ElevatorPhys.Location.Y + 1)
         End If
+        If ((Not (Me.CoilUP.Checked)) And (Not (Me.CoilDown.Checked))) Then
+            Me.ElevatorPhys.Location = Me.ElevatorPhys.Location
+        End If
+
         'Move_Elevator(floor_asked)
     End Sub
 
@@ -352,7 +380,7 @@ Public Class Elevator
     Private Sub ButtonCallFloor2_Click(sender As Object, e As EventArgs) Handles ButtonCallFloor2.Click
         'Me.ButtonCallFloor2.Image = My.Resources.buttonpush
         'floor_asked.Add(Floor.two)
-        Public floor_asked As New List(Of Floor)(New Floor() {Floor.zero})
+        Dim floor_asked As New List(Of Floor)(New Floor() {Floor.zero})
         FC5("00000000000601050001F000")
     End Sub
 
