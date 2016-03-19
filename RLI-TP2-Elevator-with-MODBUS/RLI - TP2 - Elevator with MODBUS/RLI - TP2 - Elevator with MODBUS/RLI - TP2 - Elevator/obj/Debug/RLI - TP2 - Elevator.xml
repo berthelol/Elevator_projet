@@ -23,6 +23,10 @@ RLI-TP2-Elevator
 	<summary>
   Recherche une ressource localisée de type System.Drawing.Bitmap.
 </summary>
+</member><member name="P:RLI___TP2___Elevator.My.Resources.Resources.caution">
+	<summary>
+  Recherche une ressource localisée de type System.Drawing.Bitmap.
+</summary>
 </member><member name="P:RLI___TP2___Elevator.My.Resources.Resources.elevator">
 	<summary>
   Recherche une ressource localisée de type System.Drawing.Bitmap.

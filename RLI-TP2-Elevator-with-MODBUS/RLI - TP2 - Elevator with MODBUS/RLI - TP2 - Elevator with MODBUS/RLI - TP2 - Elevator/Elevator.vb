@@ -8,16 +8,11 @@ Public Class Elevator
 
     Private serverIsRunning As Boolean = False
     Private clientIsRunning As Boolean = False
-    Public Enum Floor
-        zero = 485
-        one = 335
-        two = 185
-        three = 35
-    End Enum
+   
     Dim msg_send As Byte() = New Byte(0 To 11) {}
     Dim msg_receive As Byte() = New Byte(0 To 11) {}
-    Public floor_asked As New List(Of Floor)(New Floor() {Floor.zero})
-    Public last_floor As New Floor
+    Dim test As Boolean = False
+
     Private Sub ConnectToServer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ConnectToServer.Click
         If Not clientIsRunning Then
             Me.clientIsRunning = True
@@ -44,6 +39,7 @@ Public Class Elevator
             Me.ConnectToServer.ForeColor = System.Drawing.Color.Red
             Me.ConnectToServer.Text = "Connect To the Server"
         End If
+       
     End Sub
 
     Private Sub LauchServer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LauchServer.Click
@@ -51,19 +47,22 @@ Public Class Elevator
         Me.LauchServer.ForeColor = System.Drawing.Color.Red
         Me.LauchServer.Text = "Launch the Server"
         If Not serverIsRunning Then
-            Dim serveur As AsyncSocket.Serveur = New AsyncSocket.Serveur
-            serveur.Show()
+            Dim server As Server
+            server = New Server
+            server.Show()
+            'Dim serveur As AsyncSocket.Serveur = New AsyncSocket.Serveur
+            ' serveur.Show()
             serverIsRunning = True
             Me.LauchServer.ForeColor = System.Drawing.Color.Green
             Me.LauchServer.Text = "Stop the Server"
 
-        Else 
-        If _socket IsNot Nothing Then
-            _socket.Close()
-        End If
-        Me.serverIsRunning = False
-        Me.LauchServer.ForeColor = System.Drawing.Color.Red
-        Me.LauchServer.Text = "Launch the Server"
+        Else
+            If _socket IsNot Nothing Then
+                _socket.Close()
+            End If
+            Me.serverIsRunning = False
+            Me.LauchServer.ForeColor = System.Drawing.Color.Red
+            Me.LauchServer.Text = "Launch the Server"
         End If
 
 
@@ -148,6 +147,10 @@ Public Class Elevator
                 If GetChar(Encoding.ASCII.GetString(e.ReceivedBytes), 22) = "0" Then
                     SetCoilDown(False)
                 End If
+                If (GetChar(Encoding.ASCII.GetString(e.ReceivedBytes), 21) = "0") And (GetChar(Encoding.ASCII.GetString(e.ReceivedBytes), 22) = "0") Then
+                    SetCoilDown(False)
+                    SetCoilUP(False)
+                End If
                 'FC1
             Case "1"
                 ' FC1(Encoding.ASCII.GetString(e.ReceivedBytes))
@@ -168,9 +171,6 @@ Public Class Elevator
         'Functions for CoilUP and CoilDown are given (see SetCoilDown and SetCoilUP)
     End Sub
 
-    
-
-
 
     'Private Sub ButtonCallFloor2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ButtonCallFloor2.Click'
     '  If serverIsRunning Then'
@@ -181,7 +181,6 @@ Public Class Elevator
     '  End If'
     '  End Sub'
 
-    
 
     'Read discret input in the slave
     Private Sub FC2()
@@ -215,59 +214,6 @@ Public Class Elevator
 
     End Sub
 
-    'Private Sub Move_Elevator(ByVal floor As List(Of Floor))
-    '   If floor.Count Then
-    'Si l'ascenseur est en dessous de l'étage demandé alors il monte '
-    '     If Me.ElevatorPhys.Location.Y > floor.Item(0) Then
-    '        Me.ElevatorPhys.Location = New Point(Me.ElevatorPhys.Location.X, Me.ElevatorPhys.Location.Y - 1)
-    '       SetCoilUP(True)
-    '       SetCoilDown(False)
-    'Si l'ascenseur est au dessus de l'étage demandé alors il descend '
-    '    ElseIf Me.ElevatorPhys.Location.Y < floor.Item(0) Then
-    '       Me.ElevatorPhys.Location = New Point(Me.ElevatorPhys.Location.X, Me.ElevatorPhys.Location.Y + 1)
-    '        SetCoilUP(False)
-    '     SetCoilDown(True)
-    'Arrivé à l'étage demandé'
-    '  ElseIf Me.ElevatorPhys.Location.Y = floor.Item(0) Then
-    'On éteint le bouton appelé
-    '     Change_bouton_color(floor.Item(0))
-    'On enlève l'étage demandé de la list d'attente
-    '   floor_asked.RemoveAt(0)
-    '   SetCoilUP(False)
-    '   SetCoilDown(False)
-    'Stop le temps que les passagers descendent'
-    '   System.Threading.Thread.Sleep(1000)
-
-    '   End If
-    ' End If
-    'Sensors
-    '  Select Case Me.ElevatorPhys.Location.Y
-    'Si ascenseur dans la zone du sensor 0'
-    '     Case Me.PositionSensor0.Location.Y - Me.ElevatorPhys.Size.Height
-    '       Me.LedSensor0.BackColor = Color.LawnGreen
-    'Si ascenseur dans la zone du sensor 1'
-    '   Case Me.PositionSensor1.Location.Y - Me.ElevatorPhys.Size.Height + 5 To Me.PositionSensor1.Location.Y
-    '       Me.LedSensor1.BackColor = Color.LawnGreen
-    'Si ascenseur dans la zone du sensor 2'
-    '  Case Me.PositionSensor2.Location.Y - Me.ElevatorPhys.Size.Height + 5 To Me.PositionSensor2.Location.Y
-    '      Me.LedSensor2.BackColor = Color.LawnGreen
-    'Si ascenseur dans la zone du sensor 3'
-    '  Case Me.PositionSensor3.Location.Y - Me.ElevatorPhys.Size.Height + 5 To Me.PositionSensor3.Location.Y
-    '      Me.LedSensor3.BackColor = Color.LawnGreen
-    'Si ascenseur dans la zone du sensor 4'
-    'Case Me.PositionSensor4.Location.Y + Me.PositionSensor4.Size.Height 
-    '  Case 35
-    '      Me.LedSensor4.BackColor = Color.LawnGreen
-
-    '  Case Else
-    '      Me.LedSensor0.BackColor = Color.Transparent
-    '       Me.LedSensor1.BackColor = Color.Transparent
-    '      Me.LedSensor2.BackColor = Color.Transparent
-    '      Me.LedSensor3.BackColor = Color.Transparent
-    '      Me.LedSensor4.BackColor = Color.Transparent
-    '  End Select
-
-    ' End Sub
     Dim last_sensor As Integer = 0
     Private Function Sensor() As Integer
         'Sensors
@@ -302,16 +248,17 @@ Public Class Elevator
                 Me.LedSensor3.BackColor = Color.Transparent
                 Me.LedSensor4.BackColor = Color.Transparent
                 actual_sensor = last_sensor
+                test = True
         End Select
         Return actual_sensor
     End Function
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-
-
         '<> different
-        If (Sensor() <> last_sensor) Then
+        Dim test As Integer = Sensor()
+        If (test <> last_sensor) And test Then
             FC2()
+            test = False
         End If
 
         If (Me.CoilUP.Checked) Then
@@ -324,9 +271,7 @@ Public Class Elevator
             Me.ElevatorPhys.Location = Me.ElevatorPhys.Location
         End If
 
-        'Move_Elevator(floor_asked)
     End Sub
-
 
 
 End Class

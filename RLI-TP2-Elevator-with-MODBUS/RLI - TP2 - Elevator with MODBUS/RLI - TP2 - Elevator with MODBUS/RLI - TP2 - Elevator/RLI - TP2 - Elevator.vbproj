@@ -96,13 +96,13 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="ServerNameForm.vb">
+    <Compile Include="Server.Designer.vb">
+      <DependentUpon>Server.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Server.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Serveur.Designer.vb">
-      <DependentUpon>Serveur.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Serveur.vb">
+    <Compile Include="ServerNameForm.vb">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
@@ -113,16 +113,16 @@
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Server.resx">
+      <DependentUpon>Server.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ServerNameForm.resx">
       <DependentUpon>ServerNameForm.vb</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Serveur.resx">
-      <DependentUpon>Serveur.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +166,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\elevatoropen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\danger.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\danger1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\danger2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\caution.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
