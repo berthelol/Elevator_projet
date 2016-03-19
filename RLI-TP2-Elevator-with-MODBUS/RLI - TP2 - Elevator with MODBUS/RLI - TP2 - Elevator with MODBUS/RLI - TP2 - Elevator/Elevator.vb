@@ -162,7 +162,7 @@ Public Class Elevator
                 FC15(Encoding.ASCII.GetString(e.ReceivedBytes))
 
             Case Else
-                Me.LedSensor0.BackColor = Color.Black
+                ' Me.LedSensor0.BackColor = Color.Black
         End Select
 
 
@@ -222,7 +222,7 @@ Public Class Elevator
             'Si ascenseur dans la zone du sensor 0'
             Case Me.PositionSensor0.Location.Y - Me.ElevatorPhys.Size.Height
                 Me.LedSensor0.BackColor = Color.LawnGreen
-                actual_sensor = 0
+                actual_sensor = 5
                 'Si ascenseur dans la zone du sensor 1'
             Case Me.PositionSensor1.Location.Y - Me.ElevatorPhys.Size.Height + 5 To Me.PositionSensor1.Location.Y
                 Me.LedSensor1.BackColor = Color.LawnGreen

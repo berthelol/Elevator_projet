@@ -28,12 +28,15 @@ Public Class Server
         one = 1
         two = 2
         three = 3
+        all
     End Enum
     Public start As Boolean
     Public floor_asked As New List(Of Floor)(New Floor())
     Public last_sensor As New Sensor()
     Public last_coil As New Coil()
     Public change As Boolean
+    Public can_delete As Boolean
+    Public counter As Integer = 0
     Public Sub New()
         ' Cet appel est requis par le Concepteur Windows Form.
         InitializeComponent()
@@ -45,6 +48,7 @@ Public Class Server
         last_coil = Coil.up
         ' floor_asked.Add(Floor.zero)
         start = False
+
     End Sub
 
     Public Sub SendMessageToClient(ByVal msg As Byte())
@@ -69,7 +73,6 @@ Public Class Server
                 ' FC1(Encoding.ASCII.GetString(e.ReceivedBytes))
                 'FC2 read sensors
             Case "2"
-
                 'sensor0
                 Dim prev_sensor As Sensor = last_sensor
                 If ((GetChar(Encoding.ASCII.GetString(e.ReceivedBytes), 19) = "0") And (GetChar(Encoding.ASCII.GetString(e.ReceivedBytes), 20) = "1")) Then
@@ -139,58 +142,94 @@ Public Class Server
 
     Private Sub ButtonCallFloor0_Click(sender As Object, e As EventArgs) Handles ButtonCallFloor0.Click
         Me.ButtonCallFloor0.Image = My.Resources.buttonpush
-        floor_asked.Add(Floor.zero)
+        If floor_asked.Count Then
+            If (floor_asked.Item(0) <> Floor.zero) Then
+                floor_asked.Add(Floor.zero)
+            End If
+        Else
+            floor_asked.Add(Floor.zero)
+        End If
         '  Me.TextBox2.Text = "0 " + Me.TextBox2.Text
         start = True
         change = True
         Move_Elevator()
+        can_delete = True
     End Sub
 
     Private Sub ButtonCallFloor1_Click(sender As Object, e As EventArgs) Handles ButtonCallFloor1.Click
         Me.ButtonCallFloor1.Image = My.Resources.buttonpush
-        floor_asked.Add(Floor.one)
+        If floor_asked.Count Then
+            If (floor_asked.Item(0) <> Floor.one) Then
+                floor_asked.Add(Floor.one)
+            End If
+        Else
+            floor_asked.Add(Floor.one)
+        End If
         ' Me.TextBox2.Text = "1 " + Me.TextBox2.Text
         start = True
         change = True
         Move_Elevator()
+        can_delete = True
     End Sub
 
     Private Sub ButtonCallFloor2_Click(sender As Object, e As EventArgs) Handles ButtonCallFloor2.Click
         Me.ButtonCallFloor2.Image = My.Resources.buttonpush
-        floor_asked.Add(Floor.two)
+        If floor_asked.Count Then
+            If (floor_asked.Item(0) <> Floor.two) Then
+                floor_asked.Add(Floor.two)
+            End If
+        Else
+            floor_asked.Add(Floor.two)
+        End If
+
         ' Me.TextBox2.Text = "2 " + Me.TextBox2.Text
         start = True
         change = True
         Move_Elevator()
+        can_delete = True
     End Sub
 
     Private Sub ButtonCallFloor3_Click(sender As Object, e As EventArgs) Handles ButtonCallFloor3.Click
         Me.ButtonCallFloor3.Image = My.Resources.buttonpush
-        floor_asked.Add(Floor.three)
+        If floor_asked.Count Then
+            If (floor_asked.Item(0) <> Floor.three) Then
+                floor_asked.Add(Floor.three)
+            End If
+        Else
+            floor_asked.Add(Floor.three)
+        End If
+
         ' Me.TextBox2.Text = "3 " + Me.TextBox2.Text
         start = True
         change = True
         Move_Elevator()
+        can_delete = True
+        
     End Sub
     Private Sub STOP_Click(sender As Object, e As EventArgs) Handles Stop_button.Click
         FC5(Coil.null)
-
-        'floor_asked.RemoveAt(0)
+        If floor_asked.Count Then
+            floor_asked.RemoveAt(0)
+            Change_bouton_color(Floor.all)
+        End If
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         ' Move_Elevator()
         ' TextBox1.Text = last_sensor
-
+        Move_Elevator()
         If floor_asked.Count Then
             TextBox2.Text = floor_asked.Item(0).ToString
-            TextBox1.Text = change.ToString
+            'TextBox1.Text = counter
+            TextBox1.Text = ""
+            For Each element In floor_asked
+                TextBox1.Text = TextBox1.Text + " " + element.ToString
+            Next
         End If
-        Move_Elevator()
 
     End Sub
 
-    Private Sub Move_Elevator()
+    Private Function Move_Elevator() As Boolean
 
         If floor_asked.Count And start Then
             If floor_asked.Count And change Then
@@ -201,7 +240,13 @@ Public Class Server
                     'On éteint le bouton appelé
                     Change_bouton_color(Floor.three)
                     'On enlève l'étage demandé de la liste d'attente
+                    counter = counter + 1
+
+                    ' MessageBox.Show("BAM", "I am Server")
                     floor_asked.RemoveAt(0)
+                    can_delete = False
+
+
                     change = False
                 End If
             End If
@@ -212,19 +257,26 @@ Public Class Server
                     'On éteint le bouton appelé
                     Change_bouton_color(Floor.two)
                     'On enlève l'étage demandé de la liste d'attente
+
                     floor_asked.RemoveAt(0)
+                    can_delete = False
+
                     change = False
                 End If
             End If
             If floor_asked.Count And change Then
                 If ((last_sensor = Sensor.three) And floor_asked.Item(0) = Floor.two And last_coil = Coil.up) Then
-                    '  MessageBox.Show("BAM", "I am Server")
+
                     last_coil = Coil.null
                     FC5(last_coil)
                     'On éteint le bouton appelé
                     Change_bouton_color(Floor.two)
                     'On enlève l'étage demandé de la liste d'attente
+
                     floor_asked.RemoveAt(0)
+                    can_delete = False
+
+
                     change = False
                 End If
             End If
@@ -238,7 +290,10 @@ Public Class Server
                 'On éteint le bouton appelé
                 Change_bouton_color(Floor.one)
                 'On enlève l'étage demandé de la liste d'attente
+
                 floor_asked.RemoveAt(0)
+                can_delete = False
+
                 change = False
             End If
         End If
@@ -250,35 +305,41 @@ Public Class Server
                 'On éteint le bouton appelé
                 Change_bouton_color(Floor.one)
                 'On enlève l'étage demandé de la liste d'attente
+
                 floor_asked.RemoveAt(0)
+                can_delete = False
+
                 change = False
             End If
         End If
 
-        If floor_asked.Count And change Then
-            If ((last_sensor = Sensor.one) And floor_asked.Item(0) = Floor.zero) Then
-                ' MessageBox.Show("BAM", "I am Server")
+        If floor_asked.Count Then
+            If ((last_sensor = Sensor.zero) And floor_asked.Item(0) = Floor.zero And last_coil = Coil.down) Then
+                'MessageBox.Show("BAM", "I am Server")
                 last_coil = Coil.null
                 FC5(last_coil)
                 'On éteint le bouton appelé
                 Change_bouton_color(Floor.zero)
                 'On enlève l'étage demandé de la liste d'attente
+
                 floor_asked.RemoveAt(0)
+                can_delete = False
+
                 change = False
             End If
         End If
-        If floor_asked.Count And change Then
+        If floor_asked.Count Then
             'Si l'ascenseur est en dessous de l'étage demandé alors il monte '
             If (last_sensor < floor_asked.Item(0) And floor_asked.Count) Then
                 'set coil up
                 last_coil = Coil.up
-                FC5(last_coil)
+                FC5(Coil.up)
                 'Si l'ascenseur est au dessus de l'étage demandé alors il descend '
             End If
             If last_sensor > floor_asked.Item(0) And floor_asked.Count Then
                 ' MessageBox.Show(last_sensor + 1, "I am Server")
                 last_coil = Coil.down
-                FC5(last_coil)
+                FC5(Coil.down)
                 'Arrivé à l'étage demandé'
             End If
             'Else
@@ -289,8 +350,8 @@ Public Class Server
 
 
         'change = False
-
-    End Sub
+        Return can_delete
+    End Function
     Private Sub Change_bouton_color(ByVal floor As Floor)
 
         Select Case floor
@@ -302,8 +363,11 @@ Public Class Server
                 Me.ButtonCallFloor2.Image = My.Resources.buttons
             Case floor.three
                 Me.ButtonCallFloor3.Image = My.Resources.buttons
-            Case Else
-
+            Case floor.all
+                Me.ButtonCallFloor0.Image = My.Resources.buttons
+                Me.ButtonCallFloor1.Image = My.Resources.buttons
+                Me.ButtonCallFloor2.Image = My.Resources.buttons
+                Me.ButtonCallFloor3.Image = My.Resources.buttons
         End Select
     End Sub
 
